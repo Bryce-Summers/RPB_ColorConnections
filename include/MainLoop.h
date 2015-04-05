@@ -1,6 +1,13 @@
 #ifndef MAINLOOP_H
 #define MAINLOOP_H
 
+/*
+ * Written by Bryce Summers on 4/5/2015.
+ *
+ * Purpose : This class is used to drive a regular update loop on the bridge that manages the procedural animation of the colored bridge lights.
+ *
+ * this class contains the logic for each of the three modes.
+ */
 
 class MainLoop
 {

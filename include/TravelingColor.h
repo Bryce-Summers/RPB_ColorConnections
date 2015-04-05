@@ -1,6 +1,11 @@
 #ifndef TRAVELINGCOLOR_H
 #define TRAVELINGCOLOR_H
 
+/*
+ * Written by Bryce Summers on 4/5/2015.
+ *
+ * Purpose : this class encapsulates the data for singular lights that will travel along the bridge trying to match the velocity of pedestrians that cross.
+ */
 
 class TravelingColor
 {
