@@ -13,7 +13,10 @@ class TravelingColor
         TravelingColor(Color color, float vel, int pos);
         virtual ~TravelingColor();
 
-        void update();
+        void update(float timeStep);
+
+        int getPanel();
+        Color getColor();
 
     protected:
     private:

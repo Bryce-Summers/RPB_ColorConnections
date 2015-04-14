@@ -12,7 +12,17 @@ TravelingColor::~TravelingColor()
     //dtor
 }
 
-void travellingColor::update()
+void TravelingColor::update(float timeStep)
 {
-    this.pos += this.vel;
+    this.pos += this.vel * timeStep;
+}
+
+int TravelingColor::getPanel()
+{
+  return (int)position;
+}
+
+Color TravelingColor::getColor()
+{
+  return myColor
 }
