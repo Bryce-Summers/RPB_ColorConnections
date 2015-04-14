@@ -1,0 +1,9 @@
+C:/Users/Bryce/Desktop/GIT CODE/RPB_ColorConnections/Lumiverse/Demos/LumiverseDemo/CMakeFiles/Demo.dir
+C:/Users/Bryce/Desktop/GIT CODE/RPB_ColorConnections/Lumiverse/CMakeFiles/LumiverseCore.dir
+C:/Users/Bryce/Desktop/GIT CODE/RPB_ColorConnections/Lumiverse/CMakeFiles/LumiverseCoreShared.dir
+C:/Users/Bryce/Desktop/GIT CODE/RPB_ColorConnections/Lumiverse/LumiverseShowControl/CMakeFiles/LumiverseShowControl.dir
+C:/Users/Bryce/Desktop/GIT CODE/RPB_ColorConnections/Lumiverse/Test/CMakeFiles/LumiverseTest.dir
+C:/Users/Bryce/Desktop/GIT CODE/RPB_ColorConnections/Lumiverse/LumiverseShowControl/CMakeFiles/PlaybackDemo.dir
+C:/Users/Bryce/Desktop/GIT CODE/RPB_ColorConnections/Lumiverse/Demos/SpeedTest/CMakeFiles/SpeedTest.dir
+C:/Users/Bryce/Desktop/GIT CODE/RPB_ColorConnections/Lumiverse/LumiverseCore/lib/clp/CMakeFiles/clp.dir
+C:/Users/Bryce/Desktop/GIT CODE/RPB_ColorConnections/Lumiverse/LumiverseCore/lib/libjson/CMakeFiles/libjson.dir
