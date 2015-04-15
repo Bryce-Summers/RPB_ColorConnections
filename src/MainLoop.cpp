@@ -10,6 +10,8 @@ MainLoop::MainLoop()
      * 2. Initialize the logic for handling the sensors.
      */
     //ctor
+
+
 }
 
 MainLoop::~MainLoop()
@@ -24,12 +26,11 @@ void MainLoop::update()
 
     updateLights();
 
-
-    sendDataToBrige();
+    // FIXME : This is not real code.
+    sendDataToBridge();
 
 
 }
-
 
 
 // Polls the sensors and creates a traveling color if necessary.
@@ -45,8 +46,8 @@ void MainLoop::pollSensors()
 
         if(latest_times[BridgeInterface::LEFT_1] != BridgeInterface::NO_TRIGGER)
         {
-            float velocity = (latest_times[LEFT_2] - latest_times[LEFT_1])/dist_left;
-            addTravellingColor(LEFT, velocity);
+            float velocity = (latest_times[BridgeInterface::LEFT_2] - latest_times[BridgeInterface::LEFT_1])/dist_left;
+            addTravelingColor(LEFT, velocity);
 
             // Reset the trigger time arrays.
             latest_times[BridgeInterface::LEFT_1] = BridgeInterface::NO_TRIGGER;
@@ -67,9 +68,9 @@ void MainLoop::pollSensors()
 
         if(latest_times[BridgeInterface::RIGHT_1] != BridgeInterface::NO_TRIGGER)
         {
-            float velocity = (latest_times[RIGHT_2] - latest_times[RIGHT_1])/dist_right;
+            float velocity = (latest_times[BridgeInterface::RIGHT_2] - latest_times[BridgeInterface::RIGHT_1])/dist_right;
             velocity *= -1; // Colors starting of the right need to go left!
-            addTravellingColor(RIGHT, velocity);
+            addTravelingColor(RIGHT, velocity);
 
             // Reset the trigger time arrays.
             latest_times[BridgeInterface::RIGHT_1] = BridgeInterface::NO_TRIGGER;
@@ -101,7 +102,7 @@ void MainLoop::addTravelingColor(int location, float velocity)
 
     current_color = (current_color + 1) % NUM_COLORS;
 
-    TravelingColor t_color = new TravelingColor(c, velocity, location);
+    TravelingColor t_color = TravelingColor(c, velocity, location);
 
     traveling_colors.push_back(t_color);
 
@@ -110,12 +111,12 @@ void MainLoop::addTravelingColor(int location, float velocity)
 
     if(num_people > CONNECTIONS_THRESHOLD)
     {
-        mode = CONNECTIONS;
+        current_mode = CONNECTIONS;
     }
 
     if(num_people > WORLD_OF_COLOR_THRESHOLD)
     {
-        mode = WORLD_OF_COLOR;
+        current_mode = WORLD_OF_COLOR;
     }
 };
 
@@ -130,7 +131,7 @@ void MainLoop::sendDataToBridge()
 }
 
 
-void updateLights()
+void MainLoop::updateLights()
 {
     // FIXME
     /*

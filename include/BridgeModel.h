@@ -6,20 +6,24 @@
 class BridgeModel
 {
  public:
-  static const NUM_PANELS = 50;
-  typedef bridge std::array<ColorPanel, NUM_PANELS>;
+
+  // -- Constructor;
+  BridgeModel();
+
+  static const NUM_PANELS = 57;
+  typedef Bridge std::array<ColorPanel, NUM_PANELS>;
 
   void update (int timeStep);
 
   void addTravelingColor(TravelingColor t_color);
 
-  bridge getBridge ();
+  Bridge getBridge ();
 
  protected:
 
  private:
-  bridge pausch[NUM_PANELS];
-  std::vector<TravelingColor> travelors;
+  Bridge pausch;
+  std::vector<TravelingColor> travelers;
 
   void fadeBridge ();
   void displayTravelers ();

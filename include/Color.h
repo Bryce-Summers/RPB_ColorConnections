@@ -12,12 +12,13 @@ class Color
 {
     public:
         Color(int red, int green, int blue);
-        Color(int sat);
+        Color(int val);
+        Color();// Default constructor.
         virtual ~Color();
 
-        public Color add (Color other);
-        public Color sub (Color other);
-        public Color mult(Color other);
+        Color add (Color other);
+        Color sub (Color other);
+        Color mult(Color other);
 
     protected:
 

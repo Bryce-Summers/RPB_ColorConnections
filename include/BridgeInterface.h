@@ -1,6 +1,8 @@
 #ifndef BRIDGEINTERFACE_H
 #define BRIDGEINTERFACE_H
 
+#include "ColorPanel.h"
+
 /*
  * Written by Bryce Summers on 4/5/2015.
  *
@@ -16,19 +18,20 @@ class BridgeInterface
         typedef int Sensor_ID;
 
         // The initial sensor on the left.
-        const Sensor_ID LEFT_1 = 0;
+        const static Sensor_ID LEFT_1 = 0;
 
         // The secondary sensor on the left.
-        const Sensor_ID LEFT_2 = 1;
+        const static Sensor_ID LEFT_2 = 1;
 
         // THe initial sensor on the right.
-        const Sensor_ID RIGHT_1 = 2;
+        const static Sensor_ID RIGHT_1 = 2;
 
         // The secondary sensor on the right.
-        const Sensor_ID RIGHT_2 = 3;
+        const static Sensor_ID RIGHT_2 = 3;
 
-        const Sensor_ID NO_TRIGGER = -1;
+        const static Sensor_ID NO_TRIGGER = -1;
 
+        // Constructors.
         BridgeInterface();
         virtual ~BridgeInterface();
 
@@ -39,7 +42,7 @@ class BridgeInterface
         // This method should be used to query whether a sensor has been triggered since the last call to this method.
         // ENSURES : Returns the time the latest trigger occurred.
         //           Returns NO_TRIGGER if the sensor has not been triggered since the last time this function was called.
-        int poll_sensor_trigger(Sensor_ID id);
+        int poll_sensor_trigger(const Sensor_ID id);
 
     protected:
 

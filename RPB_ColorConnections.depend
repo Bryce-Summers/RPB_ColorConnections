@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1429059396 source:c:\users\bryce\desktop\git code\rpb_colorconnections\src\bridgeinterface.cpp
+	"BridgeInterface.h"
+
+1429059280 c:\users\bryce\desktop\git code\rpb_colorconnections\include\bridgeinterface.h
+	"ColorPanel.h"
+
+1429050179 c:\users\bryce\desktop\git code\rpb_colorconnections\include\colorpanel.h
+	"Color.h"
+
+1429051278 c:\users\bryce\desktop\git code\rpb_colorconnections\include\color.h
+
+1429051327 source:c:\users\bryce\desktop\git code\rpb_colorconnections\src\color.cpp
+	"Color.h"
+
+1429050188 source:c:\users\bryce\desktop\git code\rpb_colorconnections\src\colorpanel.cpp
+	"ColorPanel.h"
+
+1429059203 source:c:\users\bryce\desktop\git code\rpb_colorconnections\src\mainloop.cpp
+	"MainLoop.h"
+
+1429058462 c:\users\bryce\desktop\git code\rpb_colorconnections\include\mainloop.h
+	"BridgeInterface.h"
+	<vector>
+	"TravelingColor.h"
+
+1429058645 c:\users\bryce\desktop\git code\rpb_colorconnections\include\travelingcolor.h
+	"Color.h"
+
+1429058774 source:c:\users\bryce\desktop\git code\rpb_colorconnections\src\travelingcolor.cpp
+	"TravelingColor.h"
+

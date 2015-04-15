@@ -1,6 +1,11 @@
 #ifndef MAINLOOP_H
 #define MAINLOOP_H
 
+#include "BridgeInterface.h"
+#include <vector>
+#include "TravelingColor.h"
+
+
 /*
  * Written by Bryce Summers on 4/5/2015.
  *
@@ -14,11 +19,11 @@ class MainLoop
 
     public:
 
-        // FIXME this should be the size of the array of panels on the bridge.
-        const int size;
+        // FIXME : Move this to a Global constants class.
+        const int SIZE = 57;
 
         const int LEFT = 0;
-        const int RIGHT = size - 1;
+        const int RIGHT = SIZE - 1;
 
         // Should not be equal to 0.
         float dist_left;
@@ -43,24 +48,28 @@ class MainLoop
 
         void updateLights();
 
+        void sendDataToBridge();
+
         // Stores the latest times that any of the sensors have been hit.
-        int[4] latest_times;
+        int latest_times[4];
+
+        // REQUIRES : location should equal LEFT or RIGHT.
+        void addTravelingColor(int location, float velocity);
 
     private:
 
-        // REQUIRES : left_or_right should equal LEFT or RIGHT.
-        void addTravelingColor(int left_or_right);
+
 
         std::vector<TravelingColor> traveling_colors;
 
         // This will store the 5 standard colors that we will be using.
-        const int NUM_COLORS = 5
+        const static int NUM_COLORS = 5;
 
-        Color[NUM_COLORS] standard_colors;
+        Color standard_colors[NUM_COLORS];
 
         int current_color = 0;
 
-        typedef Mode int
+        typedef int Mode;
 
         const Mode SINGULAR = 0;
         const Mode CONNECTIONS = 1;
@@ -71,5 +80,5 @@ class MainLoop
         const int WORLD_OF_COLOR_THRESHOLD = 11;
 
         Mode current_mode = SINGULAR;
-
+};
 #endif // MAINLOOP_H

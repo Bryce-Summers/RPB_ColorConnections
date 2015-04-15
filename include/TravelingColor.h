@@ -1,6 +1,8 @@
 #ifndef TRAVELINGCOLOR_H
 #define TRAVELINGCOLOR_H
 
+#include "Color.h"
+
 /*
  * Written by Bryce Summers on 4/5/2015.
  *

@@ -1,5 +1,15 @@
 #include "BridgeModel.h"
 
+
+BridgeModel::BridgeModel()
+{
+    int len = pausch.length();
+    for(i = 0; i < len; i++)
+    {
+        pausch[i] = new ColorPanel();
+    }
+}
+
 void BridgeModel::update (int timestep){
   //map over travelors updating postions
   for(std::vector<TravelingColor>::iterator it = travelors.begin();

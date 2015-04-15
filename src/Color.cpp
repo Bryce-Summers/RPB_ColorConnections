@@ -15,8 +15,37 @@ Color::Color(int sat)
     blue  = sat;
 }
 
+// Default Constructor
+Color::Color()
+{
+    red = 0;
+    green = 0;
+    blue = 0;
+}
+
 // Deconstructor.
 Color::~Color()
 {
     //dtor
+}
+
+Color Color::add (Color other)
+{
+    return Color(red + other.red,
+                     green + other.green,
+                     blue + other.blue);
+}
+
+Color Color::sub (Color other)
+{
+    return Color(red   - other.red,
+                     green - other.green,
+                     blue  - other.blue);
+}
+
+Color Color::mult(Color other)
+{
+    return Color(red   * other.red,
+                     green * other.green,
+                     blue  * other.blue);
 }
