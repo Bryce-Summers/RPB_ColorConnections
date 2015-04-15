@@ -26,7 +26,7 @@ ENDIF(APPLE)
 
 # Set source files
 set (ATTRIBUTE_SOURCE
-ArduinoServer.cpp BridgeInterface.cpp BridgeModel.cpp BridgeServer.cpp Color.cpp ColorPanel.cpp MainLoop.cpp sample_client.cpp TravelingColor.cpp ArduinoServer.cpp sample_client.cpp
+  main.cpp
 )
 
 set (FEATURE_SOURCE
