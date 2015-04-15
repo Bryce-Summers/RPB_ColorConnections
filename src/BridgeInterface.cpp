@@ -14,8 +14,8 @@ BridgeInterface::~BridgeInterface()
 // We will need to specify the format for representing the every panel's colors.
 void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 {
-
     // FIXME : Use Lumiverse.
+
 }
 
 // This method should be used to query whether a sensor has been triggered since the last call to this method.

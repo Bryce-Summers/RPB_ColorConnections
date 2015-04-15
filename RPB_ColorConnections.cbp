@@ -36,8 +36,10 @@
 		<Unit filename="include/BridgeInterface.h" />
 		<Unit filename="include/Color.h" />
 		<Unit filename="include/ColorPanel.h" />
+		<Unit filename="include/Constants.h" />
 		<Unit filename="include/MainLoop.h" />
 		<Unit filename="include/TravelingColor.h" />
+		<Unit filename="main.cpp" />
 		<Unit filename="src/BridgeInterface.cpp" />
 		<Unit filename="src/Color.cpp" />
 		<Unit filename="src/ColorPanel.cpp" />
