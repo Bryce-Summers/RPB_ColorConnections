@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <string>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/socket.h>
@@ -24,7 +25,7 @@
  **/ 
 using namespace std;
 
-int changeColor(int sensor) {
+int action(int sensor, float velocity) {
     //TODO: COLOR LOGIC GOES HERE
     return 0;
 }
@@ -32,7 +33,7 @@ int changeColor(int sensor) {
 
 int main(int argc, char *argv[]) {
 
-    int listenPort = 1234; //TODO: change default port
+    int listenPort = 4321; // (also hardcoded in corresponding Arduino clients)
     if (argc > 1)
         listenPort = atoi(argv[1]);
 
@@ -52,8 +53,10 @@ int main(int argc, char *argv[]) {
     // Bind a socket to the address
     int res = bind(s0, (struct sockaddr*) &myaddr, sizeof(myaddr));
     if (res < 0) {
-        perror("Cannot bind a socket"); exit(1);
+        perror("Cannot bind a socket"); 
+        exit(1);
     }
+
 
     // Set the "LINGER" timeout to zero, to close the listen socket
     // immediately at program termination.
@@ -61,32 +64,37 @@ int main(int argc, char *argv[]) {
     setsockopt(s0, SOL_SOCKET, SO_LINGER, &linger_opt, sizeof(linger_opt));
 
     // Now, listen for a connection
-    // TODO: "1" is the maximal length of the queue
-    while (listen(s0, 1) < 0) {
+    // TODO: 10 is the maximal length of the queue
+    while (listen(s0, 10) >= 0) {
+        
         // Accept a connection
         struct sockaddr_in peeraddr;
         socklen_t peeraddr_len;
         int s1 = accept(s0, (struct sockaddr*) &peeraddr, &peeraddr_len);
         if (s1 < 0) {
-            perror("Cannot accept"); 
+            perror("Cannot accept connection"); 
             exit(1);
         }
 
-        //TODO: make buffer smaller?
-        char buffer[1024];
-        res = read(s1, buffer, 1023);
+        char buffer[64];
+        res = read(s1, buffer, 63);
         if (res < 0) {
-            perror("Read error"); exit(1);
-        }
+            perror("Read error from accepted connection"); 
+            continue;
+        } 
 
-        //TODO: ALL THE BRIDE CODE
-        changeColor(buffer[0] - '0');
+        int arduino = int(buffer[0]);
+        std::string data(buffer);
+
+        float velocity = strtof(data.substr(2, 10).c_str(), NULL);
+        action(arduino, velocity);
 
         close(s1);          // Close the data socket
     }
 
-    res = close(s0);    // Close the listen socket
+    fflush(stdout);
 
+    res = close(s0);    // Close the listen socket
     perror("Cannot listen"); 
     exit(1);
 }
