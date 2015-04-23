@@ -71,9 +71,6 @@ class MainLoop
 	int CheckTimer(struct timeval &tv, int usec);
 
 
-
-        std::vector<TravelingColor> traveling_colors;
-
         // This will store the 4 standard colors that we will be using.
         const static int NUM_COLORS = 4;
 

@@ -50,13 +50,16 @@ void MainLoop::loop()
 
   if(pid == 0)
   {
+
+    int timestep = 1;
+
     struct timeval tv;
-    SetTimer(tv,5); //set up a delay timer
+    SetTimer(tv,timestep); //set up a delay timer
     printf("Main Loop Started \n");
 
     while(1)
     {
-	if (CheckTimer(tv,5)==1)
+	if (CheckTimer(tv,timestep)==1)
 	{
 	  update();
 	}
@@ -181,13 +184,16 @@ void MainLoop::pollSensors()
 // Signals the main loop that a new traveling color should be added to the bridge with at the given location and velocity.
 void MainLoop::addTravelingColor(int location, float velocity)
 {
+
+
     Color c = standard_colors[current_color];
 
     current_color = (current_color + 1) % NUM_COLORS;
 
     TravelingColor t_color = TravelingColor(c, velocity, location);
 
-    traveling_colors.push_back(t_color);
+    bridge_model.addTravelingColor(t_color);
+
 
     num_people++;
 
@@ -215,25 +221,8 @@ void MainLoop::sendDataToBridge()
 
 void MainLoop::updateLights()
 {
-    // FIXME
-    /*
 
-    // Single colors and color connection update code.
-
-    for every TravelingLight t
-        t.update();
-        if(t is out of range)
-            remove t from the array of traveling colors.
-
-
-    clear the output color buffer.
-    Add every traveling light to the output buffer.
-
-
-    if necessary, add connection lights to every panel between the connected traveling lights.
-
-
-    */
+  bridge_model.update(1);
 
 
 /* WORLD_OF_COLOR

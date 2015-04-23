@@ -16,7 +16,7 @@ class BridgeModel
   
   //typedef Bridge std::array<ColorPanel, NUM_PANELS>;
 
-  void update (int timeStep);
+  void update (float timeStep);
 
   void addTravelingColor(TravelingColor t_color);
 

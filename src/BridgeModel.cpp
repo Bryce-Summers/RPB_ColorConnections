@@ -10,7 +10,7 @@ BridgeModel::BridgeModel()
     }
 }
 
-void BridgeModel::update (int timestep){
+void BridgeModel::update (float timestep){
   //map over travelors updating postions
 
   int len = travelers.size();
