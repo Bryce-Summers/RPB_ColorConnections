@@ -189,7 +189,6 @@ void MainLoop::addTravelingColor(int location, float velocity)
 
     traveling_colors.push_back(t_color);
 
-
     num_people++;
 
     if(num_people > CONNECTIONS_THRESHOLD)

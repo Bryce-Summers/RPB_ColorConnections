@@ -20,6 +20,8 @@
 #include <LumiverseCore.h>
 #include <LumiverseShowControl/LumiverseShowControl.h>
 
+#include "include/MainLoop.h"
+
 using namespace Lumiverse;
 using namespace Lumiverse::ShowControl;
 
@@ -76,6 +78,6 @@ int main()
 	printf("sensor = %d\n", sensor);
 	printf("velocity = %f\n", velocity);
 
-	loop.addTravellingColor(sensor, velocity);
+	loop.addTravelingColor(sensor, velocity);
     }
 }
