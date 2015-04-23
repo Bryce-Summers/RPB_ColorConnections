@@ -11,7 +11,7 @@ port = 15440
 #ser = serial.Serial('/dev/cu.usbserial-A403I0LM', 9600)
 
 #marisa's computer
-ser = serial.Serial('/dev/ttyUSB0', 9600)
+#ser = serial.Serial('/dev/ttyUSB0', 9600)
 
 while 1:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -19,8 +19,8 @@ while 1:
     sock.connect(server_address)
     print >>sys.stderr, 'connecting to %s port %s' % server_address
    
-    message = ser.readline()  
-    #message = raw_input("enter something:")
+    #message = ser.readline()  
+    message = raw_input("enter something:")
 
     m_arr = message.split(' ')
     sensor = m_arr[0]

@@ -5,6 +5,9 @@
 #include "TravelingColor.h"
 #include "ColorPanel.h"
 
+#include <iostream>
+using namespace std;
+
 class BridgeModel
 {
  public:

@@ -51,19 +51,17 @@ void MainLoop::loop()
   if(pid == 0)
   {
 
-    int timestep = 1;
 
-    struct timeval tv;
-    SetTimer(tv,timestep); //set up a delay timer
     printf("Main Loop Started \n");
 
-    while(1)
+    while(true)
     {
-	if (CheckTimer(tv,timestep)==1)
-	{
-	  update();
-	}
+      cout << "Update Step.\n";
+      update();
+      cout << "Sleeping\n";
+      sleep(1);
     }
+
 
     // Execution never gets here.
     exit(7);
@@ -81,40 +79,23 @@ void MainLoop::loop()
     
 }
 
-int MainLoop::SetTimer(struct timeval &tv, int usec)
-{
-  gettimeofday(&tv,NULL);
-  tv.tv_usec+=usec;
- 
-  return 1;
-}
- 
-int MainLoop::CheckTimer(struct timeval &tv, int usec)
-{
-  struct timeval ctv;
-  gettimeofday(&ctv,NULL);
- 
-  if( (ctv.tv_usec >= tv.tv_usec) || (ctv.tv_sec > tv.tv_sec) )
-  {
-      gettimeofday(&tv,NULL);
-      tv.tv_usec+=usec;
-      return 1;
-  }
-  else
-    return 0;
-}
 
 
 // -- Normal Looping Code.
 
 void MainLoop::update()
 {
-    pollSensors();
+  //   pollSensors();
 
+  cout << "Update Lights \n";
     updateLights();
+
+    cout << "Send Data to Bridge\n";
 
     // FIXME : This is not real code.
     sendDataToBridge();
+
+    cout << "Done with Update.\n";
 
 }
 

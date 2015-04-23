@@ -6,9 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/s15_group4/Desktop/RPB_ColorConnections/src/MainLoop.cpp
-MainLoop.h
-/home/s15_group4/Desktop/RPB_ColorConnections/src/MainLoop.h
+/home/s15_group4/Desktop/RPB_ColorConnections/src/BridgeInterface.cpp
+BridgeInterface.h
+/home/s15_group4/Desktop/RPB_ColorConnections/src/BridgeInterface.h
+
+/home/s15_group4/Desktop/RPB_ColorConnections/src/BridgeModel.cpp
+BridgeModel.h
+/home/s15_group4/Desktop/RPB_ColorConnections/src/BridgeModel.h
 
 /usr/local/include/DMX/ArtNetInterface.h
 LumiverseCoreConfig.h
@@ -1925,24 +1929,14 @@ TravelingColor.h
 include/TravelingColor.h
 ColorPanel.h
 include/ColorPanel.h
+iostream
+-
 
 include/Color.h
 
 include/ColorPanel.h
 Color.h
 include/Color.h
-
-include/MainLoop.h
-BridgeInterface.h
-include/BridgeInterface.h
-vector
--
-TravelingColor.h
-include/TravelingColor.h
-sys/time.h
--
-stdio.h
--
 
 include/TravelingColor.h
 Color.h

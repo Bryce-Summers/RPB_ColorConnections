@@ -1,17 +1,21 @@
 #include "BridgeModel.h"
 
 
+
 BridgeModel::BridgeModel()
 {
     int len = NUM_PANELS;
     for(int i = 0; i < len; i++)
     {
         pausch[i] = ColorPanel();
+	pausch[i].setColor(255, 0, 0);
     }
 }
 
 void BridgeModel::update (float timestep){
   //map over travelors updating postions
+
+  cout << "Bridge Model : Model Updating \n";
 
   int len = travelers.size();
 
@@ -29,11 +33,15 @@ void BridgeModel::update (float timestep){
 
 void BridgeModel::addTravelingColor(TravelingColor t_color)
 {
+  cout << "Add Traveling Color\n";
   travelers.push_back(t_color);
 }
 
 ColorPanel* BridgeModel::getBridge ()
 {
+
+  cout << "Bridge Model Exported.\n";
+
   return pausch;
 }
 

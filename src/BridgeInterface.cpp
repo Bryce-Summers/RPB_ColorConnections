@@ -8,6 +8,8 @@ BridgeInterface::BridgeInterface()
     rig -> init();
     rig -> run();
 
+    rig->getAllDevices().setRGBRaw(0, 1, 0);
+
 
 }
 
@@ -31,8 +33,16 @@ void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
        float g = c.green;
        float b = c.blue;
 
+       // THIS SHOULD WORK !!!!!!!
        rig->select("$panel=" + i).setRGBRaw(r/255.0, g/255.0, b/255.0);
     }
+
+    cout << "Updated Rig. \n";
+
+    //    cout << "Sending Blue to All \n";
+    //    rig -> getAllDevices().setRGBRaw(1, 0, 0);
+    //rig->getAllDevices().setRGBRaw(0, 0, 1);
+    //    rig->update();
 
 
 }
