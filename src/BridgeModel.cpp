@@ -3,33 +3,36 @@
 
 BridgeModel::BridgeModel()
 {
-    int len = pausch.length();
-    for(i = 0; i < len; i++)
+    int len = NUM_PANELS;
+    for(int i = 0; i < len; i++)
     {
-        pausch[i] = new ColorPanel();
+        pausch[i] = ColorPanel();
     }
 }
 
 void BridgeModel::update (int timestep){
   //map over travelors updating postions
-  for(std::vector<TravelingColor>::iterator it = travelors.begin();
-      it != travelors.end(); ++it) {
-    it.update(timestep);
+
+  int len = travelers.size();
+
+  for(int i = 0; i < len; i++)
+  {
+    travelers[i].update(timestep);
   }
 
   //Update the Bridge Model
-  BridgeModel::fadeBridge();
-  BridgeModel::displayTravelors();
-  BridgeModel::displayLinks();
-  BridgeModel::baseTwinkle();
+  fadeBridge();
+  displayTravelers();
+  displayLinks();
+  baseTwinkle();
 }
 
 void BridgeModel::addTravelingColor(TravelingColor t_color)
 {
-  this.travelors.push_back(t_color);
+  travelers.push_back(t_color);
 }
 
-bridge BridgeModel::getBridge ()
+ColorPanel* BridgeModel::getBridge ()
 {
   return pausch;
 }
@@ -41,40 +44,40 @@ void BridgeModel::fadeBridge ()
   for( int i = 0; i < NUM_PANELS; i++)
   {
     pausch[i].setTop (0,0,0);
-    pausch[i].setBot (0,0,0);
+    pausch[i].setBottom(0,0,0);
   }
 }//end fadeBridge
 
 void BridgeModel::displayTravelers ()
 {
-   for(std::vector<TravelingColor>::iterator it = travelors.begin();
-       it != travelors.end(); ++it) {
-     pausch[it.getPanel()].setTop(it.getColor());
-     pausch[it.getPanel()].setBot(it.getColor());
+   for(std::vector<TravelingColor>::iterator it = travelers.begin();
+       it != travelers.end(); ++it) {
+     pausch[it->getPanel()].setTop(it->getColor());
+     pausch[it->getPanel()].setBottom(it->getColor());
   }
 }//end displayTravlers
 
 //Determines behavior of panels when interacting with link color c
-void link(int pos, Color c)
+void BridgeModel::link(int pos, Color c)
 {
   pausch[pos].setTop(c);
 }
 
 void BridgeModel::displayLinks()
 {
-   for(std::vector<TravelingColor>::iterator sender = travelors.begin();
-       sender != travelors.end(); ++sender)
+   for(std::vector<TravelingColor>::iterator sender = travelers.begin();
+       sender != travelers.end(); ++sender)
    {
      for(std::vector<TravelingColor>::iterator recieve = sender;
-	 recieve != travelors.end(); ++recieve)
+	 recieve != travelers.end(); ++recieve)
      {
-       if (sender.getColor() == recieve.getColor())
+       if (sender->getColor() == recieve->getColor())
        {
-	 int minPos = min(sender.getPanel(), recieve.getPanel());
-	 int maxPos = max(sender.getPanel(), recieve.getPanel());
+	 int minPos = std::min(sender->getPanel(), recieve->getPanel());
+	 int maxPos = std::max(sender->getPanel(), recieve->getPanel());
 	 for (int j = minPos; j <= maxPos; j++)
 	 {
-	   link(j, sender.getColor());
+	   link(j, sender->getColor());
 	 }
        }
      }//end recieve loop
@@ -82,7 +85,7 @@ void BridgeModel::displayLinks()
 }//end displayLinks
 
 //Add shimmer effect to empty panels
-void baseTwinkle ()
+void BridgeModel::baseTwinkle ()
 {
 
 }

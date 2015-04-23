@@ -1,12 +1,16 @@
 cmake_minimum_required (VERSION 2.6)
 
 project (RPB_SHOW)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/../cmake/modules")
+#set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/../cmake/modules")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /home/s15_group4/Desktop/modules/)
+
 
 # defaulting to release build
 IF (NOT CMAKE_BUILD_TYPE)
   SET(CMAKE_BUILD_TYPE "Release" CACHE STRING "Type of build (Debug Release RelWithDebInfo MinSizeRel)" FORCE)
 ENDIF ()
+
+
 
 # Compiler options
 IF(APPLE)
@@ -25,20 +29,20 @@ ELSEIF(UNIX OR LINUX)
 ENDIF(APPLE)
 
 # Set source files
-set (ATTRIBUTE_SOURCE
-ArduinoServer.cpp BridgeInterface.cpp BridgeModel.cpp BridgeServer.cpp Color.cpp ColorPanel.cpp MainLoop.cpp sample_client.cpp TravelingColor.cpp ArduinoServer.cpp sample_client.cpp
+set (SERVER_SOURCE
+  main.cpp src/BridgeInterface.cpp src/BridgeModel.cpp
+  src/Color.cpp
+  src/ColorPanel.cpp
+  src/MainLoop.cpp
+  src/TravelingColor.cpp
 )
 
-set (FEATURE_SOURCE
-  featureGen.cpp
-)
 
 find_package(Lumiverse REQUIRED)
-include_directories(${LUMIVERSE_INCLUDE_DIR} ${LUMIVERSE_ARNOLD_INCLUDE_DIR})
+include_directories(${LUMIVERSE_INCLUDE_DIR})
+include_directories(/home/s15_group4/Desktop/RPB_ColorConnections/src)
+include_directories(/home/s15_group4/Desktop/RPB_ColorConnections/include)
 set(ACTIVE_LIBRARIES ${LUMIVERSE_LIBRARIES})
 
-add_executable (SceneGenerator ${ATTRIBUTE_SOURCE})
-target_link_libraries(SceneGenerator ${ACTIVE_LIBRARIES})
-
-add_executable (FeatureGenerator ${FEATURE_SOURCE})
-target_link_libraries(FeatureGenerator ${ACTIVE_LIBRARIES})
+add_executable (RPB_4 ${SERVER_SOURCE})
+target_link_libraries(RPB_4 ${ACTIVE_LIBRARIES})

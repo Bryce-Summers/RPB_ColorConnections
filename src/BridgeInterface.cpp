@@ -2,12 +2,18 @@
 
 BridgeInterface::BridgeInterface()
 {
-    //ctor
+
+    rig = new Rig("/home/teacher/Lumiverse/PBridge.rig.json");
+
+    rig -> init();
+    rig -> run();
+
+
 }
 
 BridgeInterface::~BridgeInterface()
 {
-    //dtor
+  delete rig;
 }
 
 // Updates the bridge with the current state of colors.
@@ -15,6 +21,19 @@ BridgeInterface::~BridgeInterface()
 void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 {
     // FIXME : Use Lumiverse.
+    for(int i = 1; i < size; i++)
+    {
+       ColorPanel panel = panel_array[i];
+
+       Color c = panel.getColor();
+
+       float r = c.red;
+       float g = c.green;
+       float b = c.blue;
+
+       rig->select("$panel=" + i).setRGBRaw(r/255.0, g/255.0, b/255.0);
+    }
+
 
 }
 

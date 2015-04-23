@@ -23,11 +23,19 @@ class ColorPanel
         void setTop(int r, int g, int b);
         void setBottom(int r, int g, int b);
 
-    protected:
-    private:
+	void setColor(Color color);
+	void setColor(int r, int g, int b);
+
+	Color getColor();
+      
 
         Color top = Color(0);
         Color bottom = Color(0);
+
+
+    protected:
+    private:
+
 };
 
 #endif // COLORPANEL_H

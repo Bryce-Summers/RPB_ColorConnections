@@ -23,6 +23,7 @@ Color::Color()
     blue = 0;
 }
 
+
 // Deconstructor.
 Color::~Color()
 {

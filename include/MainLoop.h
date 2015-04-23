@@ -6,6 +6,11 @@
 #include "TravelingColor.h"
 
 
+// For The Timer Implementation.
+#include<sys/time.h>
+#include<stdio.h>
+
+
 /*
  * Written by Bryce Summers on 4/5/2015.
  *
@@ -13,7 +18,6 @@
  *
  * this class contains the logic for each of the three modes.
  */
-
 class MainLoop
 {
 
@@ -31,7 +35,6 @@ class MainLoop
 
         int num_people = 0;
 
-
         // -- Methods.
 
         MainLoop();
@@ -41,6 +44,15 @@ class MainLoop
         void update();
 
         BridgeInterface bridge;
+	BridgeModel bridge_model;
+
+        // REQUIRES : location should equal LEFT or RIGHT.
+        void addTravelingColor(int location, float velocity);
+
+
+	// Call this function to start the looping.
+	// Non blocking, returns after spawning a pthread.
+	void loop();
 
     protected:
 
@@ -53,17 +65,17 @@ class MainLoop
         // Stores the latest times that any of the sensors have been hit.
         int latest_times[4];
 
-        // REQUIRES : location should equal LEFT or RIGHT.
-        void addTravelingColor(int location, float velocity);
-
     private:
+
+	int SetTimer(struct timeval &tv, int usec);
+	int CheckTimer(struct timeval &tv, int usec);
 
 
 
         std::vector<TravelingColor> traveling_colors;
 
-        // This will store the 5 standard colors that we will be using.
-        const static int NUM_COLORS = 5;
+        // This will store the 4 standard colors that we will be using.
+        const static int NUM_COLORS = 4;
 
         Color standard_colors[NUM_COLORS];
 

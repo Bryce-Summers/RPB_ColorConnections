@@ -12,6 +12,18 @@ MainLoop::MainLoop()
     //ctor
 
 
+  // Important initializations.
+  bridge = BridgeInterface();
+  bridge_model = BridgeModel();
+
+  standard_colors[0] = Color(255, 0, 0);
+  standard_colors[1] = Color(0, 255, 0);
+  standard_colors[2] = Color(0, 0, 255);
+  standard_colors[3] = Color(255, 255, 0);
+
+
+  // User will need to start the loop by calling loop();
+
 }
 
 MainLoop::~MainLoop()
@@ -19,6 +31,78 @@ MainLoop::~MainLoop()
     //dtor
 }
 
+
+// -- Timing Code.
+
+void MainLoop::loop()
+{
+
+  int pid = fork();
+
+  if(pid == -1)
+  {
+    throw new runtime_error("orking went Awry!");
+  } 
+
+  /* Child Proccess */
+
+  // Run the update loop in the forked proccess.
+
+  if(pid == 0)
+  {
+    struct timeval tv;
+    SetTimer(tv,5); //set up a delay timer
+    printf("Main Loop Started \n");
+
+    while(1)
+    {
+	if (CheckTimer(tv,5)==1)
+	{
+	  update();
+	}
+    }
+
+    // Execution never gets here.
+    exit(7);
+
+  }
+
+  /* Parent Proccess */
+
+  // Note : pid = id of the child proccess.
+
+  // Returns control to the main server.
+
+  return;
+
+    
+}
+
+int MainLoop::SetTimer(struct timeval &tv, int usec)
+{
+  gettimeofday(&tv,NULL);
+  tv.tv_usec+=usec;
+ 
+  return 1;
+}
+ 
+int MainLoop::CheckTimer(struct timeval &tv, int usec)
+{
+  struct timeval ctv;
+  gettimeofday(&ctv,NULL);
+ 
+  if( (ctv.tv_usec >= tv.tv_usec) || (ctv.tv_sec > tv.tv_sec) )
+  {
+      gettimeofday(&tv,NULL);
+      tv.tv_usec+=usec;
+      return 1;
+  }
+  else
+    return 0;
+}
+
+
+// -- Normal Looping Code.
 
 void MainLoop::update()
 {
@@ -28,7 +112,6 @@ void MainLoop::update()
 
     // FIXME : This is not real code.
     sendDataToBridge();
-
 
 }
 
@@ -124,10 +207,10 @@ void MainLoop::addTravelingColor(int location, float velocity)
 void MainLoop::sendDataToBridge()
 {
     // FIXME : We need to construct these.
-    ColorPanel * panel_array;
-    int size;
+    ColorPanel * panel = bridge_model.getBridge();
+    int size = bridge_model.NUM_PANELS;
 
-    bridge.sendCurrentState(panel_array, size);
+    bridge.sendCurrentState(panel, size);
 }
 
 

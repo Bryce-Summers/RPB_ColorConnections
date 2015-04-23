@@ -20,6 +20,11 @@
 #include <LumiverseCore.h>
 #include <LumiverseShowControl/LumiverseShowControl.h>
 
+/*
+ * TODO : BAILING / Marissa 
+ *
+ */
+
 using namespace Lumiverse;
 using namespace Lumiverse::ShowControl;
 
@@ -32,13 +37,31 @@ void toggleLights(Rig* rig, int mode)
 
 }
 
- 
-
 int main()
 {
-    MainLoop loop = MainLoop();
-    loop.loop();
 
+    Rig* rig = new Rig("/home/teacher/Lumiverse/PBridge.rig.json");
+
+    rig -> init();
+    rig -> run();
+
+    //rig->getDevice("CG4_9")->setRGBRaw(0,1,0);
+    rig->getAllDevices().setRGBRaw(0, 1, 0);
+
+    // On.
+    int mode = 1;
+    int panel_number = 1;
+
+    /*
+    while(true)
+    {
+      sleep(1);
+      mode = mode ^ 1;
+      rig->getAllDevices().setRGBRaw(mode ^ 1, mode, 0);
+    }
+    */
+
+    // -- Server
     // server
     int port = 15440;
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);   // TCP/IP socket
@@ -60,22 +83,29 @@ int main()
         socklen_t sa_size = sizeof(struct sockaddr_in);
         int sessfd = accept(sockfd, (struct sockaddr *)&cli, &sa_size);
 
-        // Accept input strings of size 1 and 9 respectively
-        char s_buf[2];
-        recv(sessfd, s_buf, 1, 0);
-        s_buf[5] = '\0';// Make a proper string by adding a new line character.
+        // Accept input strings of size up to 5;
+        char buf[6];
+
+        recv(sessfd, buf, 5, 0);
+        buf[5] = '\0';// Make a proper string by adding a new line character.
+
+	sleep(1);
+        mode = mode ^ 1;
+
 	
-	char v_buf[10] = {};
-	recv(sessfd, v_buf, 9, 0);
-	v_buf[9] = '\0';
 
-	// turn received message into server number and velocity
-	int sensor = s_buf[0] - 48;
-	float velocity = atof(v_buf); 
+        // Toggle the Bridge.
+	rig->getAllDevices().setRGBRaw(mode ^ 1, mode, 0);
+        rig->select("$panel=" + panel_number).setRGBRaw(0, 0, 1);
+	panel_number = (panel_number + 1) % 57;
+        //toggleLights(rig, mode);
 
-	printf("sensor = %d\n", sensor);
-	printf("velocity = %f\n", velocity);
+	// printf("Toggle");
 
-	loop.addTravellingColor(sensor, velocity);
+        // Print out the message in the bridge's console.
+        printf("buf = %s\n", buf);
+        
     }
+
+
 }

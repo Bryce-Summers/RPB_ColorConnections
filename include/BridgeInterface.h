@@ -2,6 +2,14 @@
 #define BRIDGEINTERFACE_H
 
 #include "ColorPanel.h"
+#include "BridgeModel.h"
+
+#include <LumiverseCore.h>
+#include <LumiverseShowControl/LumiverseShowControl.h>
+
+using namespace Lumiverse;
+using namespace Lumiverse::ShowControl;
+
 
 /*
  * Written by Bryce Summers on 4/5/2015.
@@ -47,6 +55,11 @@ class BridgeInterface
     protected:
 
     private:
+
+	// This is the object that allows us to talk to Lumiverse.
+	Rig* rig;
+
+
 };
 
 #endif // BRIDGEINTERFACE_H
