@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 
 project (RPB_SHOW)
 #set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/../cmake/modules")
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /home/s15_group4/Desktop/modules/)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /home/s15_group4/Desktop/modules)
 
 
 # defaulting to release build
@@ -30,6 +30,7 @@ ENDIF(APPLE)
 
 # Set source files
 set (SERVER_SOURCE
+
   main.cpp src/BridgeInterface.cpp src/BridgeModel.cpp
   src/Color.cpp
   src/ColorPanel.cpp
@@ -40,8 +41,10 @@ set (SERVER_SOURCE
 
 find_package(Lumiverse REQUIRED)
 include_directories(${LUMIVERSE_INCLUDE_DIR})
+
 include_directories(/home/s15_group4/Desktop/RPB_ColorConnections/src)
 include_directories(/home/s15_group4/Desktop/RPB_ColorConnections/include)
+
 set(ACTIVE_LIBRARIES ${LUMIVERSE_LIBRARIES})
 
 add_executable (RPB_4 ${SERVER_SOURCE})

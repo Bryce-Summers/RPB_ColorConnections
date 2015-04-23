@@ -16,7 +16,6 @@
 #include <pthread.h>
 #include <netinet/tcp.h>
 #include <assert.h>
-
 #include <LumiverseCore.h>
 #include <LumiverseShowControl/LumiverseShowControl.h>
 
@@ -24,17 +23,6 @@
 
 using namespace Lumiverse;
 using namespace Lumiverse::ShowControl;
-
-void toggleLights(Rig* rig, int mode)
-{
-    for(int i = 1; i < 57; i++)
-    {
-        rig->select("$panel=" + i).setRGBRaw(mode, mode, mode);
-    }
-
-}
-
- 
 
 int main()
 {
