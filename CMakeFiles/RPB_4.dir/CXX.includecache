@@ -10,10 +10,6 @@
 BridgeInterface.h
 /home/s15_group4/Desktop/RPB_ColorConnections/src/BridgeInterface.h
 
-/home/s15_group4/Desktop/RPB_ColorConnections/src/BridgeModel.cpp
-BridgeModel.h
-/home/s15_group4/Desktop/RPB_ColorConnections/src/BridgeModel.h
-
 /usr/local/include/DMX/ArtNetInterface.h
 LumiverseCoreConfig.h
 /usr/local/include/DMX/LumiverseCoreConfig.h

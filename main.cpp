@@ -21,13 +21,30 @@
 
 #include "include/MainLoop.h"
 
+#include <thread>
+
 using namespace Lumiverse;
 using namespace Lumiverse::ShowControl;
 
+void looper(MainLoop * loop)
+{
+    while(true)
+    {
+      cout << "Update Step.\n";
+      loop->update();
+      cout << "Sleeping\n";
+      sleep(1);
+    }
+}
+
 int main()
 {
+
+    // Create a start the Main Loop.
     MainLoop loop = MainLoop();
-    loop.loop();
+    std::thread worker(looper, &loop);
+
+
 
     // server
     int port = 15440;

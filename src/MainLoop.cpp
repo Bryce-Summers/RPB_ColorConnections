@@ -5,9 +5,14 @@ MainLoop::MainLoop()
 
     /* FIXME :
      *
-     * 1. We need to setup a regular event loop that updates the state of the bridge and communicates it to the bridge.
+     * 1. We need to setup a regular event loop that updates the state of
+     *    the bridge and communicates it to the bridge.
      *
      * 2. Initialize the logic for handling the sensors.
+     *
+     *
+     * User is responsible for implementing a looping and timing policy.
+     *
      */
     //ctor
 
@@ -21,9 +26,6 @@ MainLoop::MainLoop()
   standard_colors[2] = Color(0, 0, 255);
   standard_colors[3] = Color(255, 255, 0);
 
-
-  // User will need to start the loop by calling loop();
-
 }
 
 MainLoop::~MainLoop()
@@ -32,62 +34,13 @@ MainLoop::~MainLoop()
 }
 
 
-// -- Timing Code.
-
-void MainLoop::loop()
-{
-
-  int pid = fork();
-
-  if(pid == -1)
-  {
-    throw new runtime_error("orking went Awry!");
-  } 
-
-  /* Child Proccess */
-
-  // Run the update loop in the forked proccess.
-
-  if(pid == 0)
-  {
-
-
-    printf("Main Loop Started \n");
-
-    while(true)
-    {
-      cout << "Update Step.\n";
-      update();
-      cout << "Sleeping\n";
-      sleep(1);
-    }
-
-
-    // Execution never gets here.
-    exit(7);
-
-  }
-
-  /* Parent Proccess */
-
-  // Note : pid = id of the child proccess.
-
-  // Returns control to the main server.
-
-  return;
-
-    
-}
-
-
-
 // -- Normal Looping Code.
 
 void MainLoop::update()
 {
-  //   pollSensors();
+    //   pollSensors();
 
-  cout << "Update Lights \n";
+    cout << "Update Lights \n";
     updateLights();
 
     cout << "Send Data to Bridge\n";

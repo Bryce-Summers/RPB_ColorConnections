@@ -55,11 +55,6 @@ class MainLoop
         // REQUIRES : location should equal LEFT or RIGHT.
         void addTravelingColor(int location, float velocity);
 
-
-	// Call this function to start the looping.
-	// Non blocking, returns after spawning a pthread.
-	void loop();
-
     protected:
 
         void pollSensors();
@@ -95,5 +90,6 @@ class MainLoop
         const int WORLD_OF_COLOR_THRESHOLD = 11;
 
         Mode current_mode = SINGULAR;
+
 };
 #endif // MAINLOOP_H

@@ -8,7 +8,15 @@ BridgeModel::BridgeModel()
     for(int i = 0; i < len; i++)
     {
         pausch[i] = ColorPanel();
-	pausch[i].setColor(255, 0, 0);
+
+	if(i % 2 == 0)
+	{
+	  pausch[i].setColor(255, 0, 0);
+	}
+	else
+	{
+	  pausch[i].setColor(0, 255, 0);
+	}
     }
 }
 
