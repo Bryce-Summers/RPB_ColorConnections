@@ -37,6 +37,8 @@ class Color
         int green;
         int blue;
 
+	string toColorString()
+
     protected:
 
     private:
