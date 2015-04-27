@@ -32,6 +32,9 @@ class BridgeModel
   ColorPanel pausch[NUM_PANELS];
   std::vector<TravelingColor> travelers;
 
+  int time;
+  static const int MAXTIME = 10;
+
   void fadeBridge ();
   void displayTravelers ();
   void displayLinks ();

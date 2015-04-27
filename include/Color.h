@@ -1,6 +1,8 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include <string>
+
 /*
  Written by Bryce Summers on 4/5/2015
 
@@ -24,6 +26,7 @@ class Color
         Color add (Color other);
         Color sub (Color other);
         Color mult(Color other);
+	Color scale(double s);
 
 	bool operator==(Color other) const
 	{
@@ -37,7 +40,7 @@ class Color
         int green;
         int blue;
 
-	string toColorString()
+	std::string colorString(std::string s);
 
     protected:
 

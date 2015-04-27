@@ -43,7 +43,8 @@ int main()
     // Create a start the Main Loop.
     MainLoop loop = MainLoop();
     std::thread worker(looper, &loop);
-
+    loop.addTravelingColor(0,2.0);
+    loop.addTravelingColor(57,-2.0);
 
 
     // server

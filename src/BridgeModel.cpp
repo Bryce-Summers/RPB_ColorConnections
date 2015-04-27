@@ -11,25 +11,33 @@ BridgeModel::BridgeModel()
 
 	if(i % 2 == 0)
 	{
-	  pausch[i].setColor(255, 0, 0);
+	  pausch[i].setColor(0, 0, 0);
 	}
 	else
 	{
-	  pausch[i].setColor(0, 255, 0);
+	  pausch[i].setColor(0, 0, 0);
 	}
     }
 }
 
 void BridgeModel::update (float timestep){
   //map over travelors updating postions
-
+  time += 1;
   cout << "Bridge Model : Model Updating \n";
 
   int len = travelers.size();
 
-  for(int i = 0; i < len; i++)
+  for(int i = len-1 ; i >= 0; i--)
   {
-    travelers[i].update(timestep);
+    if (travelers[i].getPanel() >=0 || 
+	travelers[i].getPanel() <= NUM_PANELS)
+    {
+	travelers[i].update(timestep);
+    }
+    else
+    {
+      travelers.erase(travelers.end()-i);
+    }
   }
 
   //Update the Bridge Model
@@ -45,6 +53,7 @@ void BridgeModel::addTravelingColor(TravelingColor t_color)
   travelers.push_back(t_color);
 }
 
+
 ColorPanel* BridgeModel::getBridge ()
 {
 
@@ -59,8 +68,9 @@ void BridgeModel::fadeBridge ()
 {
   for( int i = 0; i < NUM_PANELS; i++)
   {
-    pausch[i].setTop (0,0,0);
-    pausch[i].setBottom(0,0,0);
+    Color c = pausch[i].getColor();
+    pausch[i].setColor(c.scale(.5));
+
   }
 }//end fadeBridge
 
@@ -68,15 +78,19 @@ void BridgeModel::displayTravelers ()
 {
    for(std::vector<TravelingColor>::iterator it = travelers.begin();
        it != travelers.end(); ++it) {
-     pausch[it->getPanel()].setTop(it->getColor());
-     pausch[it->getPanel()].setBottom(it->getColor());
+     int tgt = it -> getPanel();
+     int src = it -> getOldPanel();
+     for (int i = min(src,tgt); i <= max(src,tgt); i ++){
+       double sf = 0.5/ (double)(tgt - src) * (tgt - i) + 1.0;
+       pausch[i].setColor(it->getColor().scale(sf));
+     }
   }
 }//end displayTravlers
 
 //Determines behavior of panels when interacting with link color c
 void BridgeModel::link(int pos, Color c)
 {
-  pausch[pos].setTop(c);
+  pausch[pos].setColor(c);
 }
 
 void BridgeModel::displayLinks()
@@ -103,5 +117,9 @@ void BridgeModel::displayLinks()
 //Add shimmer effect to empty panels
 void BridgeModel::baseTwinkle ()
 {
-
+  for( int i = 0; i < NUM_PANELS; i++)
+  {
+    double intensity = (double)((i + time) % MAXTIME) / (double)MAXTIME * 255;
+    pausch[i].setColor(intensity/4.0, intensity/4.0, intensity/4.0);
+  }
 }

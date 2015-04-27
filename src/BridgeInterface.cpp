@@ -1,26 +1,29 @@
+//#define OFFLINE
+
 #include "BridgeInterface.h"
 
 BridgeInterface::BridgeInterface()
 {
+    #ifndef OFFLINE
+      rig = new Rig("/home/teacher/Lumiverse/PBridge.rig.json");
 
-    rig = new Rig("/home/teacher/Lumiverse/PBridge.rig.json");
+      rig -> init();
+      //rig -> run();
 
-    rig -> init();
-    //rig -> run();
+      rig->getAllDevices().setRGBRaw(0, 1, 0);
 
-    rig->getAllDevices().setRGBRaw(0, 1, 0);
-
-    for(int i = 0; i < 20; i++)
-    {
-      rig->select("$panel=" + i).setRGBRaw(1, 0, 0);
-    }
-
-
-}
+      for(int i = 0; i < 20; i++)
+      {
+        rig->select("$panel=" + i).setRGBRaw(1, 0, 0);
+      }
+    #endif
+}//end bridge interface constructor
 
 BridgeInterface::~BridgeInterface()
 {
+#ifndef OFFLINE
   delete rig;
+#endif
 }
 
 // Updates the bridge with the current state of colors.
@@ -41,12 +44,16 @@ void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
        // THIS SHOULD WORK !!!!!!!
 
        //rig->select("$panel=" + i).setRGBRaw(r/255.0, g/255.0, b/255.0);
+       #ifndef OFFLINE
        rig->select("$panel=" + i).setRGBRaw(1, 0, 0);
+       #endif
+       cout << c.colorString("_");
     }
-
+    cout << "\n";
+    #ifndef OFFLINE
     rig->updateOnce();
     cout << "Updated Rig. \n";
-
+    #endif
     //    cout << "Sending Blue to All \n";
     //    rig -> getAllDevices().setRGBRaw(1, 0, 0);
     //rig->getAllDevices().setRGBRaw(0, 0, 1);

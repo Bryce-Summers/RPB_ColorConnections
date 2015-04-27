@@ -14,12 +14,18 @@ TravelingColor::~TravelingColor()
 
 void TravelingColor::update(float timeStep)
 {
-    this->position += this->velocity * timeStep;
+  this->oldPosition = this -> position;
+  this->position += this->velocity * timeStep;
 }
 
 int TravelingColor::getPanel()
 {
   return (int)position;
+}
+
+int TravelingColor::getOldPanel()
+{
+  return (int)oldPosition;
 }
 
 Color TravelingColor::getColor()

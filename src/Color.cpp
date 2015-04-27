@@ -1,4 +1,5 @@
 #include "Color.h"
+#include "math.h"
 
 // Constructors.
 Color::Color(int red_in, int green_in, int blue_in)
@@ -51,11 +52,20 @@ Color Color::mult(Color other)
                      blue  * other.blue);
 }
 
-string Color::colorString(string s)
+Color Color::scale(double s)
+{
+    return Color(red   * s,
+		 green * s,
+		 blue  * s);
+}
+
+
+
+std::string Color::colorString(std::string s)
 {
   double r = (double)red / 255.0;
   double g = (double)green / 255.0;
   double b = (double)blue / 255.0;
   int color = round(36 * (r * 5) + 6 * (g * 5) + (b * 5) + 16);
-  return "\e[48;5;" << color << "m" << s << "\e[0m" << "\n";
+  return "\e[48;5;" + std::to_string(color) + "m" + s + "\e[0m";
 }

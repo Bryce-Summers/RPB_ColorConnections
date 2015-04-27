@@ -18,6 +18,7 @@ class TravelingColor
         void update(float timeStep);
 
         int getPanel();
+	int getOldPanel();
         Color getColor();
 
     protected:
@@ -29,6 +30,7 @@ class TravelingColor
         // When viewed on the bridge, the position must be rounded to
         // an integer of interpolated to the two bridge panels near it.
         float position;
+	float oldPosition;
 };
 
 #endif // TRAVELINGCOLOR_H
