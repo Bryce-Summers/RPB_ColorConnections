@@ -50,3 +50,12 @@ Color Color::mult(Color other)
                      green * other.green,
                      blue  * other.blue);
 }
+
+string Color::colorString(string s)
+{
+  double r = (double)red / 255.0;
+  double g = (double)green / 255.0;
+  double b = (double)blue / 255.0;
+  int color = round(36 * (r * 5) + 6 * (g * 5) + (b * 5) + 16);
+  return "\e[48;5;" << color << "m" << s << "\e[0m" << "\n";
+}
