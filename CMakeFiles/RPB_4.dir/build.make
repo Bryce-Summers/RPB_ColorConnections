@@ -213,6 +213,29 @@ CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o.provides: CMakeFiles/RPB_4.dir/src
 
 CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o.provides.build: CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o
 
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o: CMakeFiles/RPB_4.dir/flags.make
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o: src/BridgePlayer.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o -c /home/s15_group4/Desktop/RPB_ColorConnections/src/BridgePlayer.cpp
+
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/s15_group4/Desktop/RPB_ColorConnections/src/BridgePlayer.cpp > CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.i
+
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/s15_group4/Desktop/RPB_ColorConnections/src/BridgePlayer.cpp -o CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.s
+
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o.requires:
+.PHONY : CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o.requires
+
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o.provides: CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o.requires
+	$(MAKE) -f CMakeFiles/RPB_4.dir/build.make CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o.provides.build
+.PHONY : CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o.provides
+
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o.provides.build: CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o
+
 # Object files for target RPB_4
 RPB_4_OBJECTS = \
 "CMakeFiles/RPB_4.dir/main.cpp.o" \
@@ -221,7 +244,8 @@ RPB_4_OBJECTS = \
 "CMakeFiles/RPB_4.dir/src/Color.cpp.o" \
 "CMakeFiles/RPB_4.dir/src/ColorPanel.cpp.o" \
 "CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o" \
-"CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o"
+"CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o" \
+"CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o"
 
 # External object files for target RPB_4
 RPB_4_EXTERNAL_OBJECTS =
@@ -233,6 +257,7 @@ RPB_4: CMakeFiles/RPB_4.dir/src/Color.cpp.o
 RPB_4: CMakeFiles/RPB_4.dir/src/ColorPanel.cpp.o
 RPB_4: CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o
 RPB_4: CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o
+RPB_4: CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o
 RPB_4: CMakeFiles/RPB_4.dir/build.make
 RPB_4: /usr/local/lib/libLumiverseCore.a
 RPB_4: /usr/local/lib/libLumiverseShowControl.a
@@ -254,6 +279,7 @@ CMakeFiles/RPB_4.dir/requires: CMakeFiles/RPB_4.dir/src/Color.cpp.o.requires
 CMakeFiles/RPB_4.dir/requires: CMakeFiles/RPB_4.dir/src/ColorPanel.cpp.o.requires
 CMakeFiles/RPB_4.dir/requires: CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o.requires
 CMakeFiles/RPB_4.dir/requires: CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o.requires
+CMakeFiles/RPB_4.dir/requires: CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o.requires
 .PHONY : CMakeFiles/RPB_4.dir/requires
 
 CMakeFiles/RPB_4.dir/clean:

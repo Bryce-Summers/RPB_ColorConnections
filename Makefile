@@ -186,6 +186,30 @@ src/BridgeModel.cpp.s:
 	$(MAKE) -f CMakeFiles/RPB_4.dir/build.make CMakeFiles/RPB_4.dir/src/BridgeModel.cpp.s
 .PHONY : src/BridgeModel.cpp.s
 
+src/BridgePlayer.o: src/BridgePlayer.cpp.o
+.PHONY : src/BridgePlayer.o
+
+# target to build an object file
+src/BridgePlayer.cpp.o:
+	$(MAKE) -f CMakeFiles/RPB_4.dir/build.make CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o
+.PHONY : src/BridgePlayer.cpp.o
+
+src/BridgePlayer.i: src/BridgePlayer.cpp.i
+.PHONY : src/BridgePlayer.i
+
+# target to preprocess a source file
+src/BridgePlayer.cpp.i:
+	$(MAKE) -f CMakeFiles/RPB_4.dir/build.make CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.i
+.PHONY : src/BridgePlayer.cpp.i
+
+src/BridgePlayer.s: src/BridgePlayer.cpp.s
+.PHONY : src/BridgePlayer.s
+
+# target to generate assembly for a file
+src/BridgePlayer.cpp.s:
+	$(MAKE) -f CMakeFiles/RPB_4.dir/build.make CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.s
+.PHONY : src/BridgePlayer.cpp.s
+
 src/Color.o: src/Color.cpp.o
 .PHONY : src/Color.o
 
@@ -300,6 +324,9 @@ help:
 	@echo "... src/BridgeModel.o"
 	@echo "... src/BridgeModel.i"
 	@echo "... src/BridgeModel.s"
+	@echo "... src/BridgePlayer.o"
+	@echo "... src/BridgePlayer.i"
+	@echo "... src/BridgePlayer.s"
 	@echo "... src/Color.o"
 	@echo "... src/Color.i"
 	@echo "... src/Color.s"

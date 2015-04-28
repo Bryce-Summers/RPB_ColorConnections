@@ -6,6 +6,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/RPB_4.dir/src/ColorPanel.cpp.o"
   "CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o"
   "CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o"
+  "CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o"
   "RPB_4.pdb"
   "RPB_4"
 )

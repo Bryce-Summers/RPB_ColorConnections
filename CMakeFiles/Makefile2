@@ -62,7 +62,7 @@ CMAKE_BINARY_DIR = /home/s15_group4/Desktop/RPB_ColorConnections
 CMakeFiles/RPB_4.dir/all:
 	$(MAKE) -f CMakeFiles/RPB_4.dir/build.make CMakeFiles/RPB_4.dir/depend
 	$(MAKE) -f CMakeFiles/RPB_4.dir/build.make CMakeFiles/RPB_4.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles  1 2 3 4 5 6 7
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles  1 2 3 4 5 6 7 8
 	@echo "Built target RPB_4"
 .PHONY : CMakeFiles/RPB_4.dir/all
 
@@ -72,7 +72,7 @@ all: CMakeFiles/RPB_4.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RPB_4.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/RPB_4.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles 0
 .PHONY : CMakeFiles/RPB_4.dir/rule

@@ -7,6 +7,7 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/home/s15_group4/Desktop/RPB_ColorConnections/main.cpp" "/home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles/RPB_4.dir/main.cpp.o"
   "/home/s15_group4/Desktop/RPB_ColorConnections/src/BridgeInterface.cpp" "/home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles/RPB_4.dir/src/BridgeInterface.cpp.o"
   "/home/s15_group4/Desktop/RPB_ColorConnections/src/BridgeModel.cpp" "/home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles/RPB_4.dir/src/BridgeModel.cpp.o"
+  "/home/s15_group4/Desktop/RPB_ColorConnections/src/BridgePlayer.cpp" "/home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o"
   "/home/s15_group4/Desktop/RPB_ColorConnections/src/Color.cpp" "/home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles/RPB_4.dir/src/Color.cpp.o"
   "/home/s15_group4/Desktop/RPB_ColorConnections/src/ColorPanel.cpp" "/home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles/RPB_4.dir/src/ColorPanel.cpp.o"
   "/home/s15_group4/Desktop/RPB_ColorConnections/src/MainLoop.cpp" "/home/s15_group4/Desktop/RPB_ColorConnections/CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o"

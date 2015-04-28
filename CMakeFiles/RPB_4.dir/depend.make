@@ -564,6 +564,8 @@ CMakeFiles/RPB_4.dir/src/BridgeModel.cpp.o: include/Color.h
 CMakeFiles/RPB_4.dir/src/BridgeModel.cpp.o: include/ColorPanel.h
 CMakeFiles/RPB_4.dir/src/BridgeModel.cpp.o: include/TravelingColor.h
 
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o: src/BridgePlayer.cpp
+
 CMakeFiles/RPB_4.dir/src/Color.cpp.o: src/Color.cpp
 CMakeFiles/RPB_4.dir/src/Color.cpp.o: include/Color.h
 
@@ -851,4 +853,6 @@ CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: include/MainLoop.h
 CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: include/TravelingColor.h
 
 CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o: src/TravelingColor.cpp
+CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o: include/Color.h
+CMakeFiles/RPB_4.dir/src/TravelingColor.cpp.o: include/TravelingColor.h
 

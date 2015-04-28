@@ -36,6 +36,7 @@ set (SERVER_SOURCE
   src/ColorPanel.cpp
   src/MainLoop.cpp
   src/TravelingColor.cpp
+  src/BridgePlayer.cpp
 )
 
 
