@@ -29,7 +29,7 @@ void BridgeModel::update (float timestep){
   for(int i = len-1 ; i >= 0; i--)
   {
     if (travelers[i].getPanel() >=0 || 
-	travelers[i].getPanel() <= NUM_PANELS)
+	travelers[i].getPanel() < NUM_PANELS)
     {
 	travelers[i].update(timestep);
     }
@@ -43,7 +43,7 @@ void BridgeModel::update (float timestep){
   fadeBridge();
   displayTravelers();
   displayLinks();
-    baseTwinkle();
+  baseTwinkle();
 }
 
 void BridgeModel::addTravelingColor(TravelingColor t_color)
@@ -95,15 +95,22 @@ void BridgeModel::displayTravelers ()
        else{
 	 Color c = it->getColor().add(pausch[i].getColor());
 	 pausch[i].setColor(c);
+
        }
      }
   }
 }//end displayTravlers
 
 //Determines behavior of panels when interacting with link color c
-void BridgeModel::link(int pos, Color c)
+// REQUIRES: left < pos < right
+void BridgeModel::link(int pos, int left, int right, Color c)
 {
-  pausch[pos].setColor(c);
+  int dist = std::max(pos - left, right - pos);
+  int maxDist = right - left;
+  Color scaledC = c.scale((double)dist / (double)maxDist);
+  Color scaledBridge = 
+    pausch[pos].getColor().scale(1.0 - ((double)dist / (double)maxDist));
+  pausch[pos].setColor(scaledC.add(scaledBridge));
 }
 
 void BridgeModel::displayLinks()
@@ -120,7 +127,7 @@ void BridgeModel::displayLinks()
 	 int maxPos = std::max(sender->getPanel(), recieve->getPanel());
 	 for (int j = minPos; j <= maxPos; j++)
 	 {
-	   link(j, sender->getColor());
+	   link(j, minPos, maxPos, sender->getColor());
 	 }
        }
      }//end recieve loop

@@ -43,8 +43,9 @@ void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 
        // THIS SHOULD WORK !!!!!!!
 
-       //rig->select("$panel=" + i).setRGBRaw(r/255.0, g/255.0, b/255.0);
+
        #ifndef OFFLINE
+       //rig->select("$panel=" + i).setRGBRaw(r/255.0, g/255.0, b/255.0);
        rig->select("$panel=" + i).setRGBRaw(1, 0, 0);
        #endif
        cout << c.colorString("_");

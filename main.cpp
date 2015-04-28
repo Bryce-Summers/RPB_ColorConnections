@@ -44,8 +44,13 @@ int main()
     MainLoop loop = MainLoop();
     std::thread worker(looper, &loop);
     loop.addTravelingColor(0, 1.0);
-    loop.addTravelingColor(57,-2.0);
-
+    loop.addTravelingColor(56,-1.0);
+    sleep(10);
+    loop.addTravelingColor(0, 1.0);
+    sleep(5);
+    loop.addTravelingColor(56, -1.0);
+    //    sleep(10);
+    //loop.addTravelingColor(0, 1.0);
 
     // server
     int port = 15440;

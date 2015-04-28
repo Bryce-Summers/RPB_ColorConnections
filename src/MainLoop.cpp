@@ -131,6 +131,9 @@ void MainLoop::addTravelingColor(int location, float velocity)
 
     num_people++;
 
+    cout << "Added Traveler "<< num_people << " with Color" 
+	 << c.red << "," << c.green << "," << c.blue << "\n";
+
     if(num_people > CONNECTIONS_THRESHOLD)
     {
         current_mode = CONNECTIONS;

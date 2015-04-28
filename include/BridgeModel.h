@@ -40,7 +40,7 @@ class BridgeModel
   void displayLinks ();
   void baseTwinkle ();
 
-  void link(int pos, Color c);
+  void link(int pos, int left, int right, Color c);
 
 
 };//end BridgeModel
