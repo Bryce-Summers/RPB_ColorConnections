@@ -41,6 +41,7 @@ class Color
         int blue;
 
 	std::string colorString(std::string s);
+	bool isGray();
 
     protected:
 

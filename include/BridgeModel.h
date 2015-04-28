@@ -33,7 +33,7 @@ class BridgeModel
   std::vector<TravelingColor> travelers;
 
   int time;
-  static const int MAXTIME = 10;
+  static const int MAXTIME = 5;
 
   void fadeBridge ();
   void displayTravelers ();

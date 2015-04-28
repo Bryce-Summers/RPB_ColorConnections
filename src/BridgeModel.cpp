@@ -1,7 +1,6 @@
 #include "BridgeModel.h"
 
 
-
 BridgeModel::BridgeModel()
 {
     int len = NUM_PANELS;
@@ -44,7 +43,7 @@ void BridgeModel::update (float timestep){
   fadeBridge();
   displayTravelers();
   displayLinks();
-  baseTwinkle();
+    baseTwinkle();
 }
 
 void BridgeModel::addTravelingColor(TravelingColor t_color)
@@ -69,7 +68,15 @@ void BridgeModel::fadeBridge ()
   for( int i = 0; i < NUM_PANELS; i++)
   {
     Color c = pausch[i].getColor();
-    pausch[i].setColor(c.scale(.5));
+    int new_r = (int)(c.red / 51) - 1;
+    new_r = max(new_r, 0) * 51;
+    int new_g = (int)(c.green / 51) - 1;
+    new_g = max(new_g, 0) * 51;
+    int new_b = (int)(c.blue / 51) - 1;
+    new_b = max(new_b, 0) * 51;
+
+
+    pausch[i].setColor(new_r, new_g , new_b);
 
   }
 }//end fadeBridge
@@ -81,8 +88,14 @@ void BridgeModel::displayTravelers ()
      int tgt = it -> getPanel();
      int src = it -> getOldPanel();
      for (int i = min(src,tgt); i <= max(src,tgt); i ++){
-       double sf = 0.5/ (double)(tgt - src) * (tgt - i) + 1.0;
-       pausch[i].setColor(it->getColor().scale(sf));
+       double sf = 1.0;//0.5/ (double)(tgt - src) * (tgt - i) + 1.0;
+       if (pausch[i].getColor().isGray()) {
+	 pausch[i].setColor(it->getColor().scale(sf));
+       }
+       else{
+	 Color c = it->getColor().add(pausch[i].getColor());
+	 pausch[i].setColor(c);
+       }
      }
   }
 }//end displayTravlers
@@ -119,7 +132,9 @@ void BridgeModel::baseTwinkle ()
 {
   for( int i = 0; i < NUM_PANELS; i++)
   {
-    double intensity = (double)((i + time) % MAXTIME) / (double)MAXTIME * 255;
-    pausch[i].setColor(intensity/4.0, intensity/4.0, intensity/4.0);
+    int intensity = (i + time) % MAXTIME * 51;
+    if (pausch[i].getColor() == Color(0,0,0) ){
+	pausch[i].setColor(intensity, intensity, intensity);
+    }
   }
 }

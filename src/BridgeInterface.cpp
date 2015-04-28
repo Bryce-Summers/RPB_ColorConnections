@@ -1,4 +1,4 @@
-//#define OFFLINE
+#define OFFLINE
 
 #include "BridgeInterface.h"
 
