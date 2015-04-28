@@ -1,7 +1,6 @@
 
 #include "sensor_main.h"
 #include "pir.h"
-#include "message.h"
 
 // Setup
 int motionDetected_0;
@@ -43,7 +42,7 @@ void pir_iteration(){
   }
   
   motionDetected_0 = (sum != PIR_DETECT_THRESH);
-  if(motionDetected_0 == 0){
+  if(motionDetected_0 == 1){
     timer_0 = millis()/1000;
     delay(100);
     while(true){
@@ -54,10 +53,11 @@ void pir_iteration(){
       }
       timer_1 = millis()/1000;
       motionDetected_1 = (sum != PIR_DETECT_THRESH); 
-      if(motionDetected_1 == 0){
+      if(motionDetected_1 == 1){
         // detect person in and send out the message;
         currentSpeed = DISTANCE / (timer_1-timer_0);
         serialWrite(SENSOR_NUM, currentSpeed);
+        break;
       }
       if((timer_1-timer_0)>ERROR_TIME){
         break;
@@ -68,8 +68,7 @@ void pir_iteration(){
   else{
     serialWrite(SENSOR_NUM, 0);
   }
-  delay(1000);
-
+  delay(700);
 }
 
 
