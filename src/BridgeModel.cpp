@@ -21,7 +21,7 @@ BridgeModel::BridgeModel()
 
 void BridgeModel::update (float timestep){
   //map over travelors updating postions
-  time += 1;
+  time = (time + 1) % MAXTIME;
   cout << "Bridge Model : Model Updating \n";
 
   int len = travelers.size();
@@ -34,15 +34,18 @@ void BridgeModel::update (float timestep){
     if(travelers[i].getPanel() < 1 ||
        travelers[i].getPanel() > NUM_PANELS)
     {
-      travelers.erase(travelers.end()-i);
+      travelers.erase(travelers.begin()+i);
     }
   }
 
   //Update the Bridge Model
   fadeBridge();
+  baseTwinkle();
   displayTravelers();
   displayLinks();
-  baseTwinkle();
+
+
+  
 }
 
 void BridgeModel::addTravelingColor(TravelingColor t_color)
@@ -76,7 +79,7 @@ void BridgeModel::fadeBridge ()
 
 
     pausch[i].setColor(new_r, new_g , new_b);
-
+    //pausch[i].setColor(0,0,0);
   }
 }//end fadeBridge
 
@@ -87,9 +90,8 @@ void BridgeModel::displayTravelers ()
      int tgt = it -> getPanel();
      int src = it -> getOldPanel();
      for (int i = min(src,tgt); i <= max(src,tgt); i ++){
-       double sf = 1.0;//0.5/ (double)(tgt - src) * (tgt - i) + 1.0;
        if (pausch[i].getColor().isGray()) {
-	 pausch[i].setColor(it->getColor().scale(sf));
+	 pausch[i].setColor(it->getColor());
        }
        else{
 	 Color c = it->getColor().add(pausch[i].getColor());
@@ -104,12 +106,35 @@ void BridgeModel::displayTravelers ()
 // REQUIRES: left < pos < right
 void BridgeModel::link(int pos, int left, int right, Color c)
 {
-  int dist = std::max(pos - left, right - pos);
-  int maxDist = right - left;
-  Color scaledC = c.scale((double)dist / (double)maxDist);
-  Color scaledBridge = 
-    pausch[pos].getColor().scale(1.0 - ((double)dist / (double)maxDist));
-  pausch[pos].setColor(scaledC.add(scaledBridge));
+  if(left != right)
+  {
+    /*    int dist = std::max(pos - left, right - pos);
+    int maxDist = right - left;
+    Color scaledC = c.scale((double)dist / (double)maxDist);
+    Color scaledBridge = 
+      pausch[pos].getColor().scale(1.0 - ((double)dist / (double)maxDist));
+    pausch[pos].setColor(scaledC.add(scaledBridge));
+    */
+    if(pausch[pos].getColor().isGray())
+    {
+      int red = 0;
+      int blue = 0;
+      int green = 0;
+      if(c.red > 0)
+      {
+	red = 51;
+      }
+      if(c.blue > 0)
+      {
+	blue = 51;
+      }
+      if(c.green > 0)
+      {
+	green = 51;
+      }	
+      pausch[pos].setColor(Color(red,blue,green));
+    }
+  }
 }
 
 void BridgeModel::displayLinks()
@@ -136,10 +161,27 @@ void BridgeModel::displayLinks()
 //Add shimmer effect to empty panels
 void BridgeModel::baseTwinkle ()
 {
-  for( int i = 0; i < NUM_PANELS; i++)
+  for( int i = 0; i < NUM_PANELS/ 2; i++)
   {
-    int intensity = (i + time) % MAXTIME * 51;
-    if (pausch[i].getColor() == Color(0,0,0) ){
+    int intensity = 51 + (time % 51);
+    if ((i - time) % 5 == 0 && travelers.size() == 0)
+    {
+      intensity = 102;
+    }
+    if (pausch[i].getColor() == Color(0,0,0) )
+    {
+	pausch[i].setColor(intensity, intensity, intensity);
+    }
+  }
+  for( int i = NUM_PANELS/2; i < NUM_PANELS; i++)
+  {
+    int intensity = 51 + (time % 51);
+    if ((i + time) % 5 == 0 && travelers.size() == 0)
+    {
+      intensity = 102;
+    }
+    if (pausch[i].getColor() == Color(0,0,0) )
+    {
 	pausch[i].setColor(intensity, intensity, intensity);
     }
   }

@@ -25,15 +25,16 @@ class BridgeModel
 
   ColorPanel * getBridge ();
 
+  std::vector<TravelingColor> travelers;
  protected:
 
  private:
   // The representation of the bridge.
   ColorPanel pausch[NUM_PANELS];
-  std::vector<TravelingColor> travelers;
+
 
   int time;
-  static const int MAXTIME = 5;
+  static const int MAXTIME = 57;
 
   void fadeBridge ();
   void displayTravelers ();

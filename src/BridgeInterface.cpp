@@ -64,8 +64,8 @@ void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
     cout << "\n";
     #ifndef OFFLINE
     rig -> updateOnce();
-    cout << "Updated Rig. \n";
-    cout << "Rig Pointer Value : " << &rig << endl;
+    // cout << "Updated Rig. \n";
+    // cout << "Rig Pointer Value : " << &rig << endl;
     #endif
     //    cout << "Sending Blue to All \n";
     //    rig -> getAllDevices().setRGBRaw(1, 0, 0);

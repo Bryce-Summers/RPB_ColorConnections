@@ -36,8 +36,7 @@ void MainLoop::update()
     //   pollSensors();
 
     if(current_mode == WORLD_OF_COLOR)
-    {
-      
+    {      
       world_of_color();
       return;
     }  

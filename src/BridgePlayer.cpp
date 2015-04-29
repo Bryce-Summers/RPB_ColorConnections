@@ -27,7 +27,7 @@ void BridgePlayer::readFile()
 
     while ( getline (file,line) )
       {
-	cout << line << '\n';
+	//	cout << line << '\n';
 	
 	ColorPanel * bridge = (ColorPanel *)malloc(sizeof(ColorPanel)*BridgeModel::NUM_PANELS);
 	  lineToBridge(line, bridge);
@@ -68,7 +68,7 @@ void  BridgePlayer::lineToBridge (std::string line, ColorPanel * bridge)
       bridge[i] = ColorPanel();
       bridge[i].setColor(ctable[color]);
 
-      printColor(bridge[i].getColor());      
+      //      printColor(bridge[i].getColor());      
 
       i++;
   }
