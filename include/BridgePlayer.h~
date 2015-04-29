@@ -1,0 +1,21 @@
+#ifndef BPLAYER_H
+#define BPLAYER_H
+
+#include <vector>
+#include <string>
+#include <fstream>
+
+#include "ColorPanel.h"
+
+class BridgePlayer
+{
+ public:
+  void readFile();
+  void lineToBridge(std::string line);
+ protected:
+
+ private:
+
+};
+
+#endif

@@ -1,20 +1,24 @@
-#define OFFLINE
+//#define OFFLINE
 
 #include "BridgeInterface.h"
 
-BridgeInterface::BridgeInterface()
+BridgeInterface::BridgeInterface(Rig * rig)
 {
+
+  // Very important
+  this -> rig = rig;
+
+  cout << "BridgeInterface Constructor.";
+
     #ifndef OFFLINE
-      rig = new Rig("/home/teacher/Lumiverse/PBridge.rig.json");
 
-      rig -> init();
-      //rig -> run();
-
+      // First set to green.
       rig->getAllDevices().setRGBRaw(0, 1, 0);
 
+      // Then set each individual panel to red.
       for(int i = 0; i < 20; i++)
       {
-        rig->select("$panel=" + i).setRGBRaw(1, 0, 0);
+	rig->select("$panel=" + std::to_string(i)).setRGBRaw(1, 0, 0);
       }
     #endif
 }//end bridge interface constructor
@@ -30,8 +34,9 @@ BridgeInterface::~BridgeInterface()
 // We will need to specify the format for representing the every panel's colors.
 void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 {
-    // FIXME : Use Lumiverse.
-    for(int i = 1; i < size; i++)
+
+    for(int i = size - 1; i >= 1; i--)
+  //for(int i = 1; i < size; i++)
     {
        ColorPanel panel = panel_array[i];
 
@@ -43,17 +48,24 @@ void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 
        // THIS SHOULD WORK !!!!!!!
 
+       Rig * temp_rig = rig;
 
        #ifndef OFFLINE
-       //rig->select("$panel=" + i).setRGBRaw(r/255.0, g/255.0, b/255.0);
-       rig->select("$panel=" + i).setRGBRaw(1, 0, 0);
+       temp_rig->select("$panel=" + std::to_string(i)).setRGBRaw(r/255.0, g/255.0, b/255.0);
+       // rig->select("$panel=" + std::to_string(i)).setRGBRaw(1, 0, 0);
+
+       // GOAL <-- We want the program to turn the bridge green, then immediatly red.
+
        #endif
        cout << c.colorString("_");
     }
+
+    // The endline that signals the end of drawing the bridge.
     cout << "\n";
     #ifndef OFFLINE
-    rig->updateOnce();
+    rig -> updateOnce();
     cout << "Updated Rig. \n";
+    cout << "Rig Pointer Value : " << &rig << endl;
     #endif
     //    cout << "Sending Blue to All \n";
     //    rig -> getAllDevices().setRGBRaw(1, 0, 0);

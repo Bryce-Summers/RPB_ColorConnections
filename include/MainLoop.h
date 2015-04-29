@@ -4,11 +4,16 @@
 #include "BridgeInterface.h"
 #include <vector>
 #include "TravelingColor.h"
+#include "BridgePlayer.h"
 
 
 // For The Timer Implementation.
 #include<sys/time.h>
 #include<stdio.h>
+
+// Needed for rig.
+#include <LumiverseCore.h>
+#include <LumiverseShowControl/LumiverseShowControl.h>
 
 
 // DEBUG
@@ -43,21 +48,22 @@ class MainLoop
 
         // -- Methods.
 
-        MainLoop();
+        MainLoop(Rig * rig);
         virtual ~MainLoop();
 
         // Every step of the loop, we should call update();
         void update();
 
-        BridgeInterface bridge;
+        BridgeInterface * bridge;
 	BridgeModel bridge_model;
+	BridgePlayer player;
 
         // REQUIRES : location should equal LEFT or RIGHT.
         void addTravelingColor(int location, float velocity);
 
     protected:
 
-        void pollSensors();
+        //void pollSensors();
 
         void updateLights();
 

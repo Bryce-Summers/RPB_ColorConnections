@@ -1,16 +1,8 @@
 #include "MainLoop.h"
 
-MainLoop::MainLoop()
+MainLoop::MainLoop(Rig * rig)
 {
-
-    /* FIXME :
-     *
-     * 1. We need to setup a regular event loop that updates the state of
-     *    the bridge and communicates it to the bridge.
-     *
-     * 2. Initialize the logic for handling the sensors.
-     *
-     *
+    /*
      * User is responsible for implementing a looping and timing policy.
      *
      */
@@ -18,8 +10,10 @@ MainLoop::MainLoop()
 
 
   // Important initializations.
-  bridge = BridgeInterface();
+  bridge = new BridgeInterface(rig);
   bridge_model = BridgeModel();
+  player = BridgePlayer();
+  player.readFile();
 
   standard_colors[0] = Color(255, 0, 0);
   standard_colors[1] = Color(0, 255, 0);
@@ -31,6 +25,7 @@ MainLoop::MainLoop()
 MainLoop::~MainLoop()
 {
     //dtor
+  delete bridge;
 }
 
 
@@ -52,8 +47,8 @@ void MainLoop::update()
 
 }
 
-
 // Polls the sensors and creates a traveling color if necessary.
+/*
 void MainLoop::pollSensors()
 {
     int left_end = bridge.poll_sensor_trigger(BridgeInterface::LEFT_2);
@@ -113,7 +108,7 @@ void MainLoop::pollSensors()
         latest_times[BridgeInterface::RIGHT_1] = left_start;
     }
 
-}
+}*/
 
 // Signals the main loop that a new traveling color should be added to the bridge with at the given location and velocity.
 void MainLoop::addTravelingColor(int location, float velocity)
@@ -152,7 +147,7 @@ void MainLoop::sendDataToBridge()
     ColorPanel * panel = bridge_model.getBridge();
     int size = bridge_model.NUM_PANELS;
 
-    bridge.sendCurrentState(panel, size);
+    bridge -> sendCurrentState(panel, size);
 }
 
 

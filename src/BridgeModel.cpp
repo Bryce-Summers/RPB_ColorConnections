@@ -28,12 +28,11 @@ void BridgeModel::update (float timestep){
 
   for(int i = len-1 ; i >= 0; i--)
   {
-    if (travelers[i].getPanel() >=0 || 
-	travelers[i].getPanel() < NUM_PANELS)
-    {
-	travelers[i].update(timestep);
-    }
-    else
+
+    travelers[i].update(timestep);
+
+    if(travelers[i].getPanel() < 1 ||
+       travelers[i].getPanel() > NUM_PANELS)
     {
       travelers.erase(travelers.end()-i);
     }

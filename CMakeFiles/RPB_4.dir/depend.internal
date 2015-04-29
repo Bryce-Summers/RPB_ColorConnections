@@ -4,6 +4,7 @@
 CMakeFiles/RPB_4.dir/main.cpp.o
  /home/s15_group4/Desktop/RPB_ColorConnections/include/BridgeInterface.h
  /home/s15_group4/Desktop/RPB_ColorConnections/include/BridgeModel.h
+ /home/s15_group4/Desktop/RPB_ColorConnections/include/BridgePlayer.h
  /home/s15_group4/Desktop/RPB_ColorConnections/include/Color.h
  /home/s15_group4/Desktop/RPB_ColorConnections/include/ColorPanel.h
  /home/s15_group4/Desktop/RPB_ColorConnections/include/MainLoop.h
@@ -566,6 +567,11 @@ CMakeFiles/RPB_4.dir/src/BridgeModel.cpp.o
  include/TravelingColor.h
 CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o
  /home/s15_group4/Desktop/RPB_ColorConnections/src/BridgePlayer.cpp
+ include/BridgeModel.h
+ include/BridgePlayer.h
+ include/Color.h
+ include/ColorPanel.h
+ include/TravelingColor.h
 CMakeFiles/RPB_4.dir/src/Color.cpp.o
  /home/s15_group4/Desktop/RPB_ColorConnections/src/Color.cpp
  include/Color.h
@@ -848,6 +854,7 @@ CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o
  /usr/local/include/types/LumiverseTypeUtils.h
  include/BridgeInterface.h
  include/BridgeModel.h
+ include/BridgePlayer.h
  include/Color.h
  include/ColorPanel.h
  include/MainLoop.h

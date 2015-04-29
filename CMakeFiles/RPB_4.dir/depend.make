@@ -3,6 +3,7 @@
 
 CMakeFiles/RPB_4.dir/main.cpp.o: include/BridgeInterface.h
 CMakeFiles/RPB_4.dir/main.cpp.o: include/BridgeModel.h
+CMakeFiles/RPB_4.dir/main.cpp.o: include/BridgePlayer.h
 CMakeFiles/RPB_4.dir/main.cpp.o: include/Color.h
 CMakeFiles/RPB_4.dir/main.cpp.o: include/ColorPanel.h
 CMakeFiles/RPB_4.dir/main.cpp.o: include/MainLoop.h
@@ -565,6 +566,11 @@ CMakeFiles/RPB_4.dir/src/BridgeModel.cpp.o: include/ColorPanel.h
 CMakeFiles/RPB_4.dir/src/BridgeModel.cpp.o: include/TravelingColor.h
 
 CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o: src/BridgePlayer.cpp
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o: include/BridgeModel.h
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o: include/BridgePlayer.h
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o: include/Color.h
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o: include/ColorPanel.h
+CMakeFiles/RPB_4.dir/src/BridgePlayer.cpp.o: include/TravelingColor.h
 
 CMakeFiles/RPB_4.dir/src/Color.cpp.o: src/Color.cpp
 CMakeFiles/RPB_4.dir/src/Color.cpp.o: include/Color.h
@@ -847,6 +853,7 @@ CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: /usr/local/include/types/LumiverseOrien
 CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: /usr/local/include/types/LumiverseTypeUtils.h
 CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: include/BridgeInterface.h
 CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: include/BridgeModel.h
+CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: include/BridgePlayer.h
 CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: include/Color.h
 CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: include/ColorPanel.h
 CMakeFiles/RPB_4.dir/src/MainLoop.cpp.o: include/MainLoop.h

@@ -40,7 +40,7 @@ class BridgeInterface
         const static Sensor_ID NO_TRIGGER = -1;
 
         // Constructors.
-        BridgeInterface();
+        BridgeInterface(Rig * rig);
         virtual ~BridgeInterface();
 
         // Updates the bridge with the current state of colors.

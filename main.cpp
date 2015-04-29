@@ -26,29 +26,94 @@
 using namespace Lumiverse;
 using namespace Lumiverse::ShowControl;
 
-void looper(MainLoop * loop)
+void looper(MainLoop * loop, int usecond_sleep_delay)
 {
     while(true)
     {
       cout << "Update Step.\n";
       loop->update();
       cout << "Sleeping\n";
-      sleep(1);
+
+      usleep(usecond_sleep_delay);
+      //sleep(1);
     }
 }
+
+void simple_test()
+{
+  Rig * rig = new Rig("/home/teacher/Lumiverse/PBridge.rig.json");
+  rig -> init();
+  rig->getAllDevices().setRGBRaw(0, 1, 0);
+
+  
+  rig->select("$panel=0").setRGBRaw(1, 0, 0);
+  rig->select("$panel=1").setRGBRaw(1, 0, 0);
+  rig->select("$panel=2").setRGBRaw(1, 0, 0);
+  rig->select("$panel=3").setRGBRaw(1, 0, 0);
+  rig->select("$panel=4").setRGBRaw(1, 0, 0);
+  rig->select("$panel=5").setRGBRaw(1, 0, 0);
+  rig->select("$panel=6").setRGBRaw(1, 0, 0);
+  rig->select("$panel=7").setRGBRaw(1, 0, 0);
+  rig->select("$panel=8").setRGBRaw(1, 0, 0);
+  rig->select("$panel=9").setRGBRaw(1, 0, 0);
+  rig->select("$panel=10").setRGBRaw(1, 0, 0);
+
+
+  rig->select("$panel=50").setRGBRaw(1, 0, 0);
+  rig->select("$panel=49").setRGBRaw(1, 0, 0);
+  rig->select("$panel=48").setRGBRaw(1, 0, 0);
+  rig->select("$panel=47").setRGBRaw(1, 0, 0);
+
+
+
+  rig->select("$panel=20").setRGBRaw(1, 0, 0);
+  rig->select("$panel=30").setRGBRaw(1, 0, 0);
+  rig->select("$panel=40").setRGBRaw(1, 0, 0);
+
+
+  
+  for(int i = 0; i < 57; i++)
+  {
+    string str = "$panel=" + std::to_string(i);
+    rig->select(str).setRGBRaw(1, 0, 0);
+  }
+  
+
+  rig->updateOnce();
+
+}
+
+//#define TEST
 
 int main()
 {
 
+
+
+#ifdef TEST
+    simple_test();
+    return 0;
+#endif
+
+    // -- Non test code does not run in test.
+
+    
+    Rig * rig = new Rig("/home/teacher/Lumiverse/PBridge.rig.json");
+    rig -> init();
+    rig->getAllDevices().setRGBRaw(0, 1, 0);
+    
+    int milliseconds = 100;// 10 frames per second.
+    unsigned int microseconds = milliseconds*1000;
+
     // Create a start the Main Loop.
-    MainLoop loop = MainLoop();
-    std::thread worker(looper, &loop);
-    loop.addTravelingColor(0, 1.0);
-    loop.addTravelingColor(56,-1.0);
+    MainLoop loop = MainLoop(rig);
+    std::thread worker(looper, &loop, microseconds);
+    loop.addTravelingColor(1, 1.0);
+    loop.addTravelingColor(57,-1.0);
     sleep(10);
-    loop.addTravelingColor(0, 1.0);
+    loop.addTravelingColor(1, 1.0);
     sleep(5);
-    loop.addTravelingColor(56, -1.0);
+    loop.addTravelingColor(57, -1.0);
     //    sleep(10);
     //loop.addTravelingColor(0, 1.0);
 
