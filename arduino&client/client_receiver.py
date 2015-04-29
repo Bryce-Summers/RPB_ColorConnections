@@ -24,7 +24,7 @@ while 1:
 
     m_arr = message.split(' ')
     sensor = m_arr[0]
-    velocity = str(float(m_arr[1]) / 10) #divide by 10 to obtain m/s
+    velocity = str(float(m_arr[1]) / 100) #divide by 100 to obtain m/s
 
     print >>sys.stderr, 'sending: %s' % message
     sock.send(sensor)
