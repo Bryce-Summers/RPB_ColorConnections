@@ -35,6 +35,13 @@ void MainLoop::update()
 {
     //   pollSensors();
 
+    if(current_mode == WORLD_OF_COLOR)
+    {
+      world_of_color();
+      return;
+    }
+
+
     cout << "Update Lights \n";
     updateLights();
 
@@ -47,68 +54,38 @@ void MainLoop::update()
 
 }
 
-// Polls the sensors and creates a traveling color if necessary.
-/*
-void MainLoop::pollSensors()
+void MainLoop :: world_of_color()
 {
-    int left_end = bridge.poll_sensor_trigger(BridgeInterface::LEFT_2);
 
-    if(left_end != BridgeInterface::NO_TRIGGER)
-    {
-        latest_times[BridgeInterface::LEFT_2] = left_end;
+  int max_index = player.bridgeData.size() - 1;
 
-        // If LEFT_1 has a fresh trigger, then call addTravellingColor(), then set the latest_times back to NO_TRIGGER.
+  cout << "World of Color" << endl;
+  cout << "Max_index = " << max_index << endl;
+  cout << "woc_index = " << woc_index << endl;
 
-        if(latest_times[BridgeInterface::LEFT_1] != BridgeInterface::NO_TRIGGER)
-        {
-            float velocity = (latest_times[BridgeInterface::LEFT_2] - latest_times[BridgeInterface::LEFT_1])/dist_left;
-            addTravelingColor(LEFT, velocity);
+  // Show has ended.
+  if(woc_index > max_index)
+  {
+    current_mode = SINGULAR;
+    woc_index = 0;
+    return;
+  }
 
-            // Reset the trigger time arrays.
-            latest_times[BridgeInterface::LEFT_1] = BridgeInterface::NO_TRIGGER;
-            latest_times[BridgeInterface::LEFT_2] = BridgeInterface::NO_TRIGGER;
-        }
+  // Display a frame.
 
-    }
+  cout << "Sending WOC" << endl;
 
-    // Do the same for the RIGHT_2 trigger.
+  ColorPanel * bridge_frame = player.bridgeData[woc_index];
 
-    int right_end = bridge.poll_sensor_trigger(BridgeInterface::RIGHT_2);
-
-    if(right_end != BridgeInterface::NO_TRIGGER)
-    {
-        latest_times[BridgeInterface::RIGHT_2] = right_end;
-
-        // If LEFT_1 has a fresh trigger, then call addTravellingColor(), then set the latest_times back to NO_TRIGGER.
-
-        if(latest_times[BridgeInterface::RIGHT_1] != BridgeInterface::NO_TRIGGER)
-        {
-            float velocity = (latest_times[BridgeInterface::RIGHT_2] - latest_times[BridgeInterface::RIGHT_1])/dist_right;
-            velocity *= -1; // Colors starting of the right need to go left!
-            addTravelingColor(RIGHT, velocity);
-
-            // Reset the trigger time arrays.
-            latest_times[BridgeInterface::RIGHT_1] = BridgeInterface::NO_TRIGGER;
-            latest_times[BridgeInterface::RIGHT_2] = BridgeInterface::NO_TRIGGER;
-        }
-    }
+  bridge -> sendCurrentState(bridge_frame, bridge_model.NUM_PANELS);
 
 
-    // Now update the LEFt_1 and RIGHT_1 triggers if they are empty and can accept new triggers.
+  // Increment frame counter.
+  woc_index++;
 
-    if(latest_times[BridgeInterface::LEFT_1] == BridgeInterface::NO_TRIGGER)
-    {
-        int left_start = bridge.poll_sensor_trigger(BridgeInterface::LEFT_1);
-        latest_times[BridgeInterface::LEFT_1] = left_start;
-    }
+}
 
-    if(latest_times[BridgeInterface::RIGHT_1] == BridgeInterface::NO_TRIGGER)
-    {
-        int left_start = bridge.poll_sensor_trigger(BridgeInterface::RIGHT_1);
-        latest_times[BridgeInterface::RIGHT_1] = left_start;
-    }
-
-}*/
+// Polls the sensors and creates a traveling color if necessary.
 
 // Signals the main loop that a new traveling color should be added to the bridge with at the given location and velocity.
 void MainLoop::addTravelingColor(int location, float velocity)
@@ -129,14 +106,20 @@ void MainLoop::addTravelingColor(int location, float velocity)
     cout << "Added Traveler "<< num_people << " with Color" 
 	 << c.red << "," << c.green << "," << c.blue << "\n";
 
-    if(num_people > CONNECTIONS_THRESHOLD)
+    if(num_people >= CONNECTIONS_THRESHOLD)
     {
         current_mode = CONNECTIONS;
     }
 
-    if(num_people > WORLD_OF_COLOR_THRESHOLD)
+    else if(num_people >= WORLD_OF_COLOR_THRESHOLD)
     {
         current_mode = WORLD_OF_COLOR;
+	woc_index = 0;
+    }
+
+    else
+    {
+      current_mode = SINGULAR;
     }
 };
 

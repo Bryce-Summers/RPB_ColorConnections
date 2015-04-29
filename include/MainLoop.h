@@ -85,17 +85,29 @@ class MainLoop
 
         int current_color = 0;
 
+	// -- Mode specification code.
         typedef int Mode;
-
         const Mode SINGULAR = 0;
         const Mode CONNECTIONS = 1;
         const Mode WORLD_OF_COLOR = 2;
 
+        //Mode current_mode = SINGULAR;
+
+	// TEMPORARY for TESTING.
+	Mode current_mode = SINGULAR;
+
         // transition to the connections mode if the number of people is >= this value.
-        const int CONNECTIONS_THRESHOLD   = 6;
-        const int WORLD_OF_COLOR_THRESHOLD = 11;
+	// Mode is inclusive of this value.
+        const int CONNECTIONS_THRESHOLD   = 5;
+        const int WORLD_OF_COLOR_THRESHOLD = 9;
 
-        Mode current_mode = SINGULAR;
 
+
+	void world_of_color();
+
+	// World of Color index.
+	int woc_index = 0;
+	
+	
 };
 #endif // MAINLOOP_H

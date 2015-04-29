@@ -8,7 +8,7 @@ BridgeInterface::BridgeInterface(Rig * rig)
   // Very important
   this -> rig = rig;
 
-  cout << "BridgeInterface Constructor.";
+  cout << "BridgeInterface Constructor." << endl;
 
     #ifndef OFFLINE
 
@@ -35,10 +35,10 @@ BridgeInterface::~BridgeInterface()
 void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 {
 
-    for(int i = size - 1; i >= 1; i--)
-  //for(int i = 1; i < size; i++)
+  // 1 - 57 inclusive
+  for(int i = 1; i <= size; i++)
     {
-       ColorPanel panel = panel_array[i];
+       ColorPanel panel = panel_array[i - 1];
 
        Color c = panel.getColor();
 

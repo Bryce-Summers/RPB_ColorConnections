@@ -20,6 +20,9 @@ class BridgePlayer
 
   void readFile();
   void lineToBridge(std::string line, ColorPanel* bridge);
+
+  void printColor(Color c);
+
  protected:
 
  private:

@@ -102,7 +102,7 @@ int main()
     rig -> init();
     rig->getAllDevices().setRGBRaw(0, 1, 0);
     
-    int milliseconds = 100;// 10 frames per second.
+    int milliseconds = 1000;// 10 frames per second.
     unsigned int microseconds = milliseconds*1000;
 
     // Create a start the Main Loop.
