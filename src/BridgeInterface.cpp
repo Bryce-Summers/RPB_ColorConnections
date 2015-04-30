@@ -1,4 +1,5 @@
 #define OFFLINE
+#define PERFORMANCE
 
 #include "BridgeInterface.h"
 
@@ -34,6 +35,10 @@ BridgeInterface::~BridgeInterface()
 // We will need to specify the format for representing the every panel's colors.
 void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 {
+  #ifdef PERFORMANCE
+  cout << "\e[2J";
+  #endif
+  
 
   // 1 - 57 inclusive
   for(int i = 1; i <= size; i++)
@@ -59,6 +64,12 @@ void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 
     // The endline that signals the end of drawing the bridge.
     cout << "\n";
+    #ifdef PERFORMANCE
+    cout << "\n" << "\n" << "\n" << "\n" << "\n";
+    cout << "\n" << "\n" << "\n" << "\n" << "\n";
+    #endif
+
+
     #ifndef OFFLINE
     rig -> updateOnce();
     // cout << "Updated Rig. \n";

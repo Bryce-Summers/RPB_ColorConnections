@@ -2,7 +2,10 @@
 
 BridgePlayer::BridgePlayer()
 {
-
+  bridgeData.reserve(10);
+  cout << "BridgeData initial size" << bridgeData.size() << endl;
+  readFile();
+  cout << "BridgeData after read size" << bridgeData.size() << endl;
 }
 
 BridgePlayer::~BridgePlayer()
@@ -26,17 +29,16 @@ void BridgePlayer::readFile()
     getline(file, line);
 
     while ( getline (file,line) )
-      {
-	//	cout << line << '\n';
+    {
+      //	cout << line << '\n';
 	
-	ColorPanel * bridge = (ColorPanel *)malloc(sizeof(ColorPanel)*BridgeModel::NUM_PANELS);
-	  lineToBridge(line, bridge);
-	  bridgeData.push_back(bridge);
-      }
-
-      file.close();
+      ColorPanel * bridge = (ColorPanel *)malloc(sizeof(ColorPanel)*BridgeModel::NUM_PANELS);
+      lineToBridge(line, bridge);
+      bridgeData.push_back(bridge);
     }
 
+    file.close();
+  }
   else
   {
     cout << "Unable to open file" << endl; 
@@ -72,7 +74,12 @@ void  BridgePlayer::lineToBridge (std::string line, ColorPanel * bridge)
 
       i++;
   }
-
+  if (i != BridgeModel::NUM_PANELS)
+  {
+    cout << "Only have " << i << " panels when we needed " 
+	 << BridgeModel::NUM_PANELS << endl;
+    exit(0);
+  }
 }
 
 
@@ -85,4 +92,14 @@ void BridgePlayer::printColor(Color c)
 		 "b = " + std::to_string(c.blue) + "]\n";
 
 
+}
+
+ColorPanel * BridgePlayer::getFrame(int i)
+{
+  return bridgeData[i];
+}
+
+int BridgePlayer::getShowSize()
+{
+  return bridgeData.size();
 }
