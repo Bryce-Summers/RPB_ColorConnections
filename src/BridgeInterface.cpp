@@ -1,4 +1,4 @@
-//#define OFFLINE
+#define OFFLINE
 
 #include "BridgeInterface.h"
 
@@ -48,14 +48,11 @@ void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 
        // THIS SHOULD WORK !!!!!!!
 
-       Rig * temp_rig = rig;
+
 
        #ifndef OFFLINE
+       Rig * temp_rig = rig;
        temp_rig->select("$panel=" + std::to_string(i)).setRGBRaw(r/255.0, g/255.0, b/255.0);
-       // rig->select("$panel=" + std::to_string(i)).setRGBRaw(1, 0, 0);
-
-       // GOAL <-- We want the program to turn the bridge green, then immediatly red.
-
        #endif
        cout << c.colorString("_");
     }
@@ -69,8 +66,6 @@ void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
     #endif
     //    cout << "Sending Blue to All \n";
     //    rig -> getAllDevices().setRGBRaw(1, 0, 0);
-    //rig->getAllDevices().setRGBRaw(0, 0, 1);
-    //    rig->update();
 
 
 }

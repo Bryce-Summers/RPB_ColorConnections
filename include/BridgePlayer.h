@@ -16,10 +16,9 @@ class BridgePlayer
 
   BridgePlayer();
   virtual ~BridgePlayer();
-  vector <ColorPanel *> bridgeData;
 
-  void readFile();
-  void lineToBridge(std::string line, ColorPanel* bridge);
+  ColorPanel* getFrame (int i);
+  int getShowSize();
 
   void printColor(Color c);
 
@@ -29,6 +28,11 @@ class BridgePlayer
   Color ctable[7] = {Color(255,255,255), Color(255,0,0), Color(0,255,0), 
 	    Color(0,0,255), Color(170,0,255), Color(255,143,0), 
 	    Color(255,255,0)};
+  void readFile();
+  void lineToBridge(std::string line, ColorPanel* bridge);
+
+  std::vector <ColorPanel *> bridgeData;
+
 };
 
 #endif

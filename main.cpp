@@ -30,9 +30,9 @@ void looper(MainLoop * loop, int usecond_sleep_delay)
 {
     while(true)
     {
-      cout << "Update Step.\n";
+      //      cout << "Update Step.\n";
       loop->update();
-      cout << "Sleeping\n";
+      //cout << "Sleeping\n";
 
       usleep(usecond_sleep_delay);
       //sleep(1);
@@ -83,8 +83,9 @@ void simple_test()
 }
 
 //#define TEST
-//#define TEST_TRAVELING_COLORS
-//#define OFFLINE
+#define TEST_TRAVELING_COLORS
+//#define TEST_WOC
+#define OFFLINE
 int main()
 {
 
@@ -112,14 +113,25 @@ int main()
     std::thread worker(looper, &loop, microseconds);
 
 #ifdef TEST_TRAVELING_COLORS
+    sleep(1);
     loop.addTravelingColor(1, 1.0);
     loop.addTravelingColor(57,-1.0);
     sleep(10);
     loop.addTravelingColor(1, 1.0);
+    loop.addTravelingColor(57,-1.0);
     sleep(5);
+    loop.addTravelingColor(1,1.0);
     loop.addTravelingColor(57, -1.0);
     sleep(5);
     loop.addTravelingColor(1,1.0);
+    loop.addTravelingColor(57, -1.0);
+    sleep(6);
+    loop.addTravelingColor(1,1.0);
+    while(true) {};
+#endif
+
+#ifdef TEST_WOC
+    loop.current_mode = loop.WORLD_OF_COLOR;
 #endif
     //    sleep(10);
     //loop.addTravelingColor(0, 1.0);

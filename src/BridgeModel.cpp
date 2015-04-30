@@ -3,40 +3,49 @@
 
 BridgeModel::BridgeModel()
 {
-    int len = NUM_PANELS;
-    for(int i = 0; i < len; i++)
-    {
-        pausch[i] = ColorPanel();
+  travelers = (TravelingColor**)malloc(sizeof(TravelingColor*) * NUM_TRAVELERS);
+  for (int i = 0; i < NUM_TRAVELERS; i++)
+  {
+    travelers[i] =  new TravelingColor();
+  }
 
-	if(i % 2 == 0)
-	{
-	  pausch[i].setColor(0, 0, 0);
-	}
-	else
-	{
-	  pausch[i].setColor(0, 0, 0);
-	}
+  int len = NUM_PANELS;
+  for(int i = 0; i < len; i++)
+  {
+    pausch[i] = ColorPanel();
+
+    if(i % 2 == 0)
+    {
+      pausch[i].setColor(0, 0, 0);
     }
-}
+    else
+    {
+      pausch[i].setColor(0, 0, 0);
+    }
+  }
+}//end initializer
 
 void BridgeModel::update (float timestep){
   //map over travelors updating postions
   time = (time + 1) % MAXTIME;
-  cout << "Bridge Model : Model Updating \n";
+  //  cout << "Bridge Model : Model Updating \n";
 
-  int len = travelers.size();
+  //  std::lock_guard<std::mutex> lock(travel_mutex);
 
-  for(int i = len-1 ; i >= 0; i--)
+  for(int i = 0 ; i<  NUM_TRAVELERS; i++)
   {
-
-    travelers[i].update(timestep);
-
-    if(travelers[i].getPanel() < 1 ||
-       travelers[i].getPanel() > NUM_PANELS)
+    if(travelers[i])
     {
-      travelers.erase(travelers.begin()+i);
-    }
-  }
+      travelers[i]->update(timestep);
+
+      if(travelers[i]->getPanel() < 1 ||
+	 travelers[i]->getPanel() > NUM_PANELS)
+      {
+	travelers[i]->active = false;
+      }
+    }//end null check
+  }//end for
+
 
   //Update the Bridge Model
   fadeBridge();
@@ -44,23 +53,61 @@ void BridgeModel::update (float timestep){
   displayTravelers();
   displayLinks();
 
-
-  
 }
 
-void BridgeModel::addTravelingColor(TravelingColor t_color)
+void BridgeModel::addTravelingColor(TravelingColor* t_color)
 {
-  cout << "Add Traveling Color\n";
-  travelers.push_back(t_color);
+    for(int i = 0; i < NUM_TRAVELERS; i++)
+  {
+    if (travelers[i] && !travelers[i]->active)
+    {
+      travelers[i] =  t_color;
+      break;
+    }
+  }
 }
 
+void BridgeModel::removeAllTravelers()
+{
+  //  cout << "Removing Travelers" << endl;
+  for(int i = 0; i < NUM_TRAVELERS; i++)
+  {
+    if(travelers[i])
+    {
+      travelers[i]->active = false;    
+    }
+  }
+  //  cout << "Removing Travelers done" << endl;
+}
+
+int BridgeModel::getNumTravelers()
+{
+  //  cout << "Counting Travelers" << endl;
+  int count = 0;
+  for(int i = 0; i < NUM_TRAVELERS; i++)
+  {
+    if(travelers[i] && travelers[i]->active)
+    {
+      count ++;
+    }
+  }
+  return count;
+}
 
 ColorPanel* BridgeModel::getBridge ()
 {
-
-  cout << "Bridge Model Exported.\n";
-
+  //  cout << "Bridge Model Exported.\n";
   return pausch;
+}
+
+void BridgeModel::setBridge (ColorPanel * bridge)
+{
+
+  //  cout << "Bridge Model Set.\n";
+  for (int i = 0; i< NUM_PANELS; i++)
+  {
+    pausch[i] = bridge[i];
+  }
 }
 
 //Reduce the colors on the bridge before update
@@ -85,21 +132,25 @@ void BridgeModel::fadeBridge ()
 
 void BridgeModel::displayTravelers ()
 {
-   for(std::vector<TravelingColor>::iterator it = travelers.begin();
-       it != travelers.end(); ++it) {
-     int tgt = it -> getPanel();
-     int src = it -> getOldPanel();
-     for (int i = min(src,tgt); i <= max(src,tgt); i ++){
-       if (pausch[i].getColor().isGray()) {
-	 pausch[i].setColor(it->getColor());
-       }
-       else{
-	 Color c = it->getColor().add(pausch[i].getColor());
-	 pausch[i].setColor(c);
-
-       }
-     }
-  }
+  for(int it_id = 0; it_id < NUM_TRAVELERS; it_id++)
+  {
+    TravelingColor* it = travelers[it_id];
+    if (it && it->active)
+    {
+      int tgt = it->getPanel();
+      int src = it->getOldPanel();
+      for (int i = min(src,tgt); i <= max(src,tgt); i ++){
+	if (pausch[i].getColor().isGray()) {
+	  pausch[i].setColor(it->getColor());
+	}
+	else{
+	  Color c = it->getColor().add(pausch[i].getColor());
+	  pausch[i].setColor(c);
+	}
+      }
+    }// end null check
+  }// end traveler loop
+  //  cout << "Finished displaying travelers" << endl;
 }//end displayTravlers
 
 //Determines behavior of panels when interacting with link color c
@@ -139,17 +190,18 @@ void BridgeModel::link(int pos, int left, int right, Color c)
 
 void BridgeModel::displayLinks()
 {
-   for(std::vector<TravelingColor>::iterator sender = travelers.begin();
-       sender != travelers.end(); ++sender)
-   {
-     for(std::vector<TravelingColor>::iterator recieve = sender;
-	 recieve != travelers.end(); ++recieve)
-     {
-       if (sender->getColor() == recieve->getColor())
-       {
-	 int minPos = std::min(sender->getPanel(), recieve->getPanel());
-	 int maxPos = std::max(sender->getPanel(), recieve->getPanel());
-	 for (int j = minPos; j <= maxPos; j++)
+  for (int send_id = 0; send_id < NUM_TRAVELERS; send_id ++)
+  {
+    for(int rec_id = send_id + 1; rec_id < NUM_TRAVELERS; rec_id ++)
+    {
+      TravelingColor* sender = travelers[send_id];
+      TravelingColor* recieve = travelers[rec_id];
+      if (sender->active && recieve->active
+	  && sender->getColor() == recieve->getColor())
+      {
+	int minPos = std::min(sender->getPanel(), recieve->getPanel());
+	int maxPos = std::max(sender->getPanel(), recieve->getPanel());
+	for (int j = minPos; j <= maxPos; j++)
 	 {
 	   link(j, minPos, maxPos, sender->getColor());
 	 }
@@ -164,7 +216,7 @@ void BridgeModel::baseTwinkle ()
   for( int i = 0; i < NUM_PANELS/ 2; i++)
   {
     int intensity = 51 + (time % 51);
-    if ((i - time) % 5 == 0 && travelers.size() == 0)
+    if ((i - time) % 5 == 0 && getNumTravelers() == 0)
     {
       intensity = 102;
     }
@@ -176,7 +228,7 @@ void BridgeModel::baseTwinkle ()
   for( int i = NUM_PANELS/2; i < NUM_PANELS; i++)
   {
     int intensity = 51 + (time % 51);
-    if ((i + time) % 5 == 0 && travelers.size() == 0)
+    if ((i + time) % 5 == 0 && getNumTravelers() == 0)
     {
       intensity = 102;
     }

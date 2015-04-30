@@ -2,7 +2,6 @@
 #define TRAVELINGCOLOR_H
 
 #include "Color.h"
-
 /*
  * Written by Bryce Summers on 4/5/2015.
  *
@@ -12,6 +11,7 @@
 class TravelingColor
 {
     public:
+        TravelingColor();
         TravelingColor(Color color, float vel, int pos);
         virtual ~TravelingColor();
 
@@ -21,6 +21,7 @@ class TravelingColor
 	int getOldPanel();
         Color getColor();
 
+	bool active;
     protected:
     private:
 
