@@ -113,19 +113,23 @@ int main()
     std::thread worker(looper, &loop, microseconds);
 
 #ifdef TEST_TRAVELING_COLORS
-    sleep(1);
+    sleep(5);
     loop.addTravelingColor(1, 1.0);
+    sleep(1);
     loop.addTravelingColor(57,-1.0);
     sleep(10);
     loop.addTravelingColor(1, 1.0);
+    sleep(1);
     loop.addTravelingColor(57,-1.0);
-    sleep(5);
+    sleep(10);
     loop.addTravelingColor(1,1.0);
+    sleep(3);
     loop.addTravelingColor(57, -1.0);
-    sleep(5);
+    sleep(10);
     loop.addTravelingColor(1,1.0);
+    sleep(5);
     loop.addTravelingColor(57, -1.0);
-    sleep(6);
+    sleep(15);
     loop.addTravelingColor(1,1.0);
     while(true) {};
 #endif
