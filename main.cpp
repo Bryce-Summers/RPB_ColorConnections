@@ -83,9 +83,9 @@ void simple_test()
 }
 
 //#define TEST
-#define TEST_TRAVELING_COLORS
+//#define TEST_TRAVELING_COLORS
 //#define TEST_WOC
-#define OFFLINE
+//#define OFFLINE
 int main()
 {
 
@@ -113,25 +113,27 @@ int main()
     std::thread worker(looper, &loop, microseconds);
 
 #ifdef TEST_TRAVELING_COLORS
-    sleep(5);
-    loop.addTravelingColor(1, 1.0);
-    sleep(1);
-    loop.addTravelingColor(57,-1.0);
-    sleep(10);
-    loop.addTravelingColor(1, 1.0);
-    sleep(1);
-    loop.addTravelingColor(57,-1.0);
-    sleep(10);
-    loop.addTravelingColor(1,1.0);
-    sleep(3);
-    loop.addTravelingColor(57, -1.0);
-    sleep(10);
-    loop.addTravelingColor(1,1.0);
-    sleep(5);
-    loop.addTravelingColor(57, -1.0);
-    sleep(15);
-    loop.addTravelingColor(1,1.0);
-    while(true) {};
+    while(true) {
+      sleep(5);
+      loop.addTravelingColor(1, 1.0);
+      sleep(1);
+      loop.addTravelingColor(57,-1.0);
+      sleep(10);
+      loop.addTravelingColor(1, 1.0);
+      sleep(1);
+      loop.addTravelingColor(57,-1.0);
+      sleep(10);
+      loop.addTravelingColor(1,1.0);
+      sleep(3);
+      loop.addTravelingColor(57, -1.0);
+      sleep(10);
+      loop.addTravelingColor(1,1.0);
+      sleep(5);
+      loop.addTravelingColor(57, -1.0);
+      sleep(15);
+      loop.addTravelingColor(1,1.0);
+      sleep(100);
+    }
 #endif
 
 #ifdef TEST_WOC
@@ -160,6 +162,8 @@ int main()
         printf("accepting\n");
         socklen_t sa_size = sizeof(struct sockaddr_in);
         int sessfd = accept(sockfd, (struct sockaddr *)&cli, &sa_size);
+
+	printf("Connection");
 
         // Accept input strings of size 1 and 9 respectively
         char s_buf[2];

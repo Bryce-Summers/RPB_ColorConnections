@@ -1,5 +1,5 @@
-#define OFFLINE
-#define PERFORMANCE
+//#define OFFLINE
+//#define PERFORMANCE
 
 #include "BridgeInterface.h"
 
