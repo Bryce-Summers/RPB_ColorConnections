@@ -1,4 +1,5 @@
-//#define OFFLINE
+#define OFFLINE
+#define PERFORMANCE
 
 #include "BridgeInterface.h"
 
@@ -8,7 +9,7 @@ BridgeInterface::BridgeInterface(Rig * rig)
   // Very important
   this -> rig = rig;
 
-  cout << "BridgeInterface Constructor.";
+  cout << "BridgeInterface Constructor." << endl;
 
     #ifndef OFFLINE
 
@@ -34,11 +35,15 @@ BridgeInterface::~BridgeInterface()
 // We will need to specify the format for representing the every panel's colors.
 void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 {
+  #ifdef PERFORMANCE
+  cout << "\e[2J";
+  #endif
+  
 
-    for(int i = size - 1; i >= 1; i--)
-  //for(int i = 1; i < size; i++)
+  // 1 - 57 inclusive
+  for(int i = 1; i <= size; i++)
     {
-       ColorPanel panel = panel_array[i];
+       ColorPanel panel = panel_array[i - 1];
 
        Color c = panel.getColor();
 
@@ -48,29 +53,30 @@ void BridgeInterface::sendCurrentState(ColorPanel * panel_array, int size)
 
        // THIS SHOULD WORK !!!!!!!
 
-       Rig * temp_rig = rig;
+
 
        #ifndef OFFLINE
+       Rig * temp_rig = rig;
        temp_rig->select("$panel=" + std::to_string(i)).setRGBRaw(r/255.0, g/255.0, b/255.0);
-       // rig->select("$panel=" + std::to_string(i)).setRGBRaw(1, 0, 0);
-
-       // GOAL <-- We want the program to turn the bridge green, then immediatly red.
-
        #endif
        cout << c.colorString("_");
     }
 
     // The endline that signals the end of drawing the bridge.
     cout << "\n";
+    #ifdef PERFORMANCE
+    cout << "\n" << "\n" << "\n" << "\n" << "\n";
+    cout << "\n" << "\n" << "\n" << "\n" << "\n";
+    #endif
+
+
     #ifndef OFFLINE
     rig -> updateOnce();
-    cout << "Updated Rig. \n";
-    cout << "Rig Pointer Value : " << &rig << endl;
+    // cout << "Updated Rig. \n";
+    // cout << "Rig Pointer Value : " << &rig << endl;
     #endif
     //    cout << "Sending Blue to All \n";
     //    rig -> getAllDevices().setRGBRaw(1, 0, 0);
-    //rig->getAllDevices().setRGBRaw(0, 0, 1);
-    //    rig->update();
 
 
 }

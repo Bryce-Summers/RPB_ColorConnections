@@ -30,9 +30,9 @@ void looper(MainLoop * loop, int usecond_sleep_delay)
 {
     while(true)
     {
-      cout << "Update Step.\n";
+      //      cout << "Update Step.\n";
       loop->update();
-      cout << "Sleeping\n";
+      //cout << "Sleeping\n";
 
       usleep(usecond_sleep_delay);
       //sleep(1);
@@ -78,13 +78,14 @@ void simple_test()
     rig->select(str).setRGBRaw(1, 0, 0);
   }
   
-
   rig->updateOnce();
 
 }
 
 //#define TEST
-
+#define TEST_TRAVELING_COLORS
+//#define TEST_WOC
+#define OFFLINE
 int main()
 {
 
@@ -97,28 +98,50 @@ int main()
 
     // -- Non test code does not run in test.
 
-    
+
     Rig * rig = new Rig("/home/teacher/Lumiverse/PBridge.rig.json");
+#ifndef OFFLINE
     rig -> init();
     rig->getAllDevices().setRGBRaw(0, 1, 0);
+#endif
     
-    int milliseconds = 100;// 10 frames per second.
+    int milliseconds = 1000;// 10 frames per second.
     unsigned int microseconds = milliseconds*1000;
 
     // Create a start the Main Loop.
     MainLoop loop = MainLoop(rig);
     std::thread worker(looper, &loop, microseconds);
+
+#ifdef TEST_TRAVELING_COLORS
+    sleep(5);
     loop.addTravelingColor(1, 1.0);
+    sleep(1);
     loop.addTravelingColor(57,-1.0);
     sleep(10);
     loop.addTravelingColor(1, 1.0);
+    sleep(1);
+    loop.addTravelingColor(57,-1.0);
+    sleep(10);
+    loop.addTravelingColor(1,1.0);
+    sleep(3);
+    loop.addTravelingColor(57, -1.0);
+    sleep(10);
+    loop.addTravelingColor(1,1.0);
     sleep(5);
     loop.addTravelingColor(57, -1.0);
+    sleep(15);
+    loop.addTravelingColor(1,1.0);
+    while(true) {};
+#endif
+
+#ifdef TEST_WOC
+    loop.current_mode = loop.WORLD_OF_COLOR;
+#endif
     //    sleep(10);
     //loop.addTravelingColor(0, 1.0);
 
     // server
-    int port = 15440;
+    int port = 15441;
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);   // TCP/IP socket
     struct sockaddr_in srv, cli;
     memset(&srv, 0, sizeof(srv));               // clear it first
@@ -154,6 +177,14 @@ int main()
 	printf("sensor = %d\n", sensor);
 	printf("velocity = %f\n", velocity);
 
-	loop.addTravelingColor(sensor, velocity);
+	if( sensor == 1)
+	{
+	  loop.addTravelingColor(1, velocity);
+	}
+	else
+	{
+	  loop.addTravelingColor(BridgeModel::NUM_PANELS - 1, -velocity);
+	}
+	  
     }
 }

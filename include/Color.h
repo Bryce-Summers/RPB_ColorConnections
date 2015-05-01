@@ -43,6 +43,16 @@ class Color
 	std::string colorString(std::string s);
 	bool isGray();
 
+	/*
+	std::ostream & operator<<(std::ostream & Str, Color const & v)
+	{ 
+	  // print something from v to str, e.g: Str << v.getX();
+	  return "Color[r = " + std::to_string(red) +
+	         "g = " + std::to_string(green) +
+		 "b = " + std::to_string(blue) + "]\n";
+	};
+	*/
+
     protected:
 
     private:

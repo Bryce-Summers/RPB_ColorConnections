@@ -2,6 +2,7 @@
 #define BRIDGEMODEL_H
 
 #include <vector>
+#include <mutex>
 #include "TravelingColor.h"
 #include "ColorPanel.h"
 
@@ -21,19 +22,26 @@ class BridgeModel
 
   void update (float timeStep);
 
-  void addTravelingColor(TravelingColor t_color);
+  void addTravelingColor(TravelingColor* t_color);
+  void removeAllTravelers();
+  int getNumTravelers();
+
 
   ColorPanel * getBridge ();
+  void setBridge(ColorPanel * bridge);
+
 
  protected:
 
  private:
   // The representation of the bridge.
   ColorPanel pausch[NUM_PANELS];
-  std::vector<TravelingColor> travelers;
+  static const int NUM_TRAVELERS = 4 * 2 + 1;
+  TravelingColor** travelers;
+
 
   int time;
-  static const int MAXTIME = 5;
+  static const int MAXTIME = 57;
 
   void fadeBridge ();
   void displayTravelers ();

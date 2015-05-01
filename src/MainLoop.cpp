@@ -10,10 +10,9 @@ MainLoop::MainLoop(Rig * rig)
 
 
   // Important initializations.
-  bridge = new BridgeInterface(rig);
   bridge_model = BridgeModel();
+  bridge = new BridgeInterface(rig);
   player = BridgePlayer();
-  player.readFile();
 
   standard_colors[0] = Color(255, 0, 0);
   standard_colors[1] = Color(0, 255, 0);
@@ -35,135 +34,97 @@ void MainLoop::update()
 {
     //   pollSensors();
 
-    cout << "Update Lights \n";
+    if(current_mode == WORLD_OF_COLOR)
+    {  
+      world_of_color();
+      sendDataToBridge();
+      return;
+    }  
+
+    num_people = bridge_model.getNumTravelers();
+
+    if(num_people >= WORLD_OF_COLOR_THRESHOLD)
+    {
+
+       current_mode = WORLD_OF_COLOR;
+       woc_index = 0;
+       num_people = 0;
+       bridge_model.removeAllTravelers();
+       return;
+    }
+
+
+    //    cout << "Update Lights \n";
     updateLights();
 
-    cout << "Send Data to Bridge\n";
+    //    cout << "Send Data to Bridge\n";
 
-    // FIXME : This is not real code.
     sendDataToBridge();
 
-    cout << "Done with Update.\n";
+    //    cout << "Done with Update.\n";
 
 }
 
-// Polls the sensors and creates a traveling color if necessary.
-/*
-void MainLoop::pollSensors()
+void MainLoop :: world_of_color()
 {
-    int left_end = bridge.poll_sensor_trigger(BridgeInterface::LEFT_2);
 
-    if(left_end != BridgeInterface::NO_TRIGGER)
-    {
-        latest_times[BridgeInterface::LEFT_2] = left_end;
+  int max_index = player.getShowSize() - 1;
 
-        // If LEFT_1 has a fresh trigger, then call addTravellingColor(), then set the latest_times back to NO_TRIGGER.
+  // Show has ended.
+  if(woc_index > max_index)
+  {
+    current_mode = SINGULAR;
+    woc_index = 0;
+    return;
+  }
+  // Display a frame.
 
-        if(latest_times[BridgeInterface::LEFT_1] != BridgeInterface::NO_TRIGGER)
-        {
-            float velocity = (latest_times[BridgeInterface::LEFT_2] - latest_times[BridgeInterface::LEFT_1])/dist_left;
-            addTravelingColor(LEFT, velocity);
+  ColorPanel * bridge_frame = player.getFrame(woc_index);
+  bridge_model.setBridge(bridge_frame);
+  // Increment frame counter.
+  woc_index++;
+   
+}
 
-            // Reset the trigger time arrays.
-            latest_times[BridgeInterface::LEFT_1] = BridgeInterface::NO_TRIGGER;
-            latest_times[BridgeInterface::LEFT_2] = BridgeInterface::NO_TRIGGER;
-        }
-
-    }
-
-    // Do the same for the RIGHT_2 trigger.
-
-    int right_end = bridge.poll_sensor_trigger(BridgeInterface::RIGHT_2);
-
-    if(right_end != BridgeInterface::NO_TRIGGER)
-    {
-        latest_times[BridgeInterface::RIGHT_2] = right_end;
-
-        // If LEFT_1 has a fresh trigger, then call addTravellingColor(), then set the latest_times back to NO_TRIGGER.
-
-        if(latest_times[BridgeInterface::RIGHT_1] != BridgeInterface::NO_TRIGGER)
-        {
-            float velocity = (latest_times[BridgeInterface::RIGHT_2] - latest_times[BridgeInterface::RIGHT_1])/dist_right;
-            velocity *= -1; // Colors starting of the right need to go left!
-            addTravelingColor(RIGHT, velocity);
-
-            // Reset the trigger time arrays.
-            latest_times[BridgeInterface::RIGHT_1] = BridgeInterface::NO_TRIGGER;
-            latest_times[BridgeInterface::RIGHT_2] = BridgeInterface::NO_TRIGGER;
-        }
-    }
-
-
-    // Now update the LEFt_1 and RIGHT_1 triggers if they are empty and can accept new triggers.
-
-    if(latest_times[BridgeInterface::LEFT_1] == BridgeInterface::NO_TRIGGER)
-    {
-        int left_start = bridge.poll_sensor_trigger(BridgeInterface::LEFT_1);
-        latest_times[BridgeInterface::LEFT_1] = left_start;
-    }
-
-    if(latest_times[BridgeInterface::RIGHT_1] == BridgeInterface::NO_TRIGGER)
-    {
-        int left_start = bridge.poll_sensor_trigger(BridgeInterface::RIGHT_1);
-        latest_times[BridgeInterface::RIGHT_1] = left_start;
-    }
-
-}*/
 
 // Signals the main loop that a new traveling color should be added to the bridge with at the given location and velocity.
 void MainLoop::addTravelingColor(int location, float velocity)
 {
+
+  // Do not allow people to be added
+  if(current_mode == WORLD_OF_COLOR || abs(velocity) < .4)
+  {
+    return;
+  }
 
 
     Color c = standard_colors[current_color];
 
     current_color = (current_color + 1) % NUM_COLORS;
 
-    TravelingColor t_color = TravelingColor(c, velocity, location);
+    TravelingColor* t_color = new TravelingColor(c, velocity, location);
 
     bridge_model.addTravelingColor(t_color);
-
-
-    num_people++;
-
-    cout << "Added Traveler "<< num_people << " with Color" 
-	 << c.red << "," << c.green << "," << c.blue << "\n";
-
-    if(num_people > CONNECTIONS_THRESHOLD)
-    {
-        current_mode = CONNECTIONS;
-    }
-
-    if(num_people > WORLD_OF_COLOR_THRESHOLD)
-    {
-        current_mode = WORLD_OF_COLOR;
-    }
+    num_people = bridge_model.getNumTravelers();
+#ifdef DEBUG
+    cout << "Added Traveler number "<< num_people << " with Color " 
+	 << c.red << "," << c.green << "," << c.blue 
+	 << " with velocity " << velocity
+	 << " and position " << location << "\n";
+#endif
 };
 
-// FIXME.
 void MainLoop::sendDataToBridge()
 {
-    // FIXME : We need to construct these.
     ColorPanel * panel = bridge_model.getBridge();
     int size = bridge_model.NUM_PANELS;
-
     bridge -> sendCurrentState(panel, size);
 }
 
 
 void MainLoop::updateLights()
 {
-
   bridge_model.update(1);
-
-
-/* WORLD_OF_COLOR
-
-For the World of Color Phase,
-we need to set up some sort of queued event system
-in order to specify a standard deterministic color.
-
- */
-
+  
 }
 

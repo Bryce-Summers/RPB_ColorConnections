@@ -61,6 +61,21 @@ class MainLoop
         // REQUIRES : location should equal LEFT or RIGHT.
         void addTravelingColor(int location, float velocity);
 
+	// -- Mode specification code.
+        typedef int Mode;
+        const Mode SINGULAR = 0;
+        const Mode CONNECTIONS = 1;
+        const Mode WORLD_OF_COLOR = 2;
+
+        //Mode current_mode = SINGULAR;
+
+	// TEMPORARY for TESTING.
+	Mode current_mode = SINGULAR;
+
+        // This will store the 4 standard colors that we will be using.
+        const static int NUM_COLORS = 4;
+
+
     protected:
 
         //void pollSensors();
@@ -78,24 +93,24 @@ class MainLoop
 	int CheckTimer(struct timeval &tv, int usec);
 
 
-        // This will store the 4 standard colors that we will be using.
-        const static int NUM_COLORS = 4;
 
         Color standard_colors[NUM_COLORS];
 
         int current_color = 0;
 
-        typedef int Mode;
-
-        const Mode SINGULAR = 0;
-        const Mode CONNECTIONS = 1;
-        const Mode WORLD_OF_COLOR = 2;
 
         // transition to the connections mode if the number of people is >= this value.
-        const int CONNECTIONS_THRESHOLD   = 6;
-        const int WORLD_OF_COLOR_THRESHOLD = 11;
+	// Mode is inclusive of this value.
+        const int CONNECTIONS_THRESHOLD   = NUM_COLORS + 1;
+        const int WORLD_OF_COLOR_THRESHOLD = 2 * NUM_COLORS + 1;
 
-        Mode current_mode = SINGULAR;
 
+
+	void world_of_color();
+
+	// World of Color index.
+	int woc_index = 0;
+	
+	
 };
 #endif // MAINLOOP_H
