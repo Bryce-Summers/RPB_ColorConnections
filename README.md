@@ -1,6 +1,8 @@
 # RPB_ColorConnections
 A project for the Randy Pausch Bridge Lighting Couse at CMU.
 
+![alt text](https://github.com/Bryce-Summers/RPB_ColorConnections/blob/master/Photos/RPB.jpg "RPB")
+
 What it Does
 ----------
 This project when run on a server with Lumniverse installed that is connected to the Randy Pausch Bridge at Carnegie Mellon University, performs an interactive ligh show that attempts to use Arduinos and sensors to allow lights to follow pedestrians across the bridge with velocity matching.
